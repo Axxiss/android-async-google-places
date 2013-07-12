@@ -1,0 +1,83 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'maven-publish'
+apply plugin: 'signing'
+
+
+group = 'io.github.axxiss'
+version = '0.1.0-SNAPSHOT'
+description = 'Asynchronous Google Places Android Wrapper'
+
+
+
+def isSnapshot = version.contains("SNAPSHOT")
+
+def mavenCentralRepo = isSnapshot ?
+    'https://oss.sonatype.org/content/repositories/snapshots/' :
+    'https://oss.sonatype.org/service/local/staging/deploy/maven2';
+
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+
+signing {
+    sign configurations.archives
+}
+
+
+task sourceJar(type: Jar) {
+    from sourceSets.main.allJava
+    classifier 'sources'
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    from javadoc.destinationDir
+    classifier 'javadoc'
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            pom.projectIdentity.artifactId = 'async-google-places'
+
+
+            artifact sourceJar
+
+            artifact javadocJar
+        }
+    }
+
+    repositories {
+        maven {
+            credentials {
+                username sonatypeUser
+                password sonatypePass
+            }
+            url mavenCentralRepo
+        }
+    }
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs {
+                'src/main/java'
+                'gen'
+            }
+        }
+        resources {
+            srcDir 'src/resources'
+        }
+    }
+}
+
+dependencies {
+    compile 'com.google.code.gson:gson:2.2.4'
+    compile 'com.loopj.android:android-async-http:1.4.3'
+}
+
