@@ -11,7 +11,7 @@ import io.github.axxiss.AsyncGooglePlaces.model.Place;
 import java.lang.reflect.Type;
 
 /**
- * @author Alexis Mas <alexis @ holla.com>
+ * @author Axxiss
  */
 public class Places {
     private static final String TAG = "Places";

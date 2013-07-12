@@ -3,7 +3,7 @@ package io.github.axxiss.AsyncGooglePlaces.model;
 import java.util.List;
 
 /**
- * @author Alexis Mas <alexis @ holla.com>
+ * @author Axxiss
  */
 public class Photo {
     private String mReference;

@@ -4,7 +4,7 @@ import com.loopj.android.http.RequestParams;
 import io.github.axxiss.AsyncGooglePlaces.Settings;
 
 /**
- * @author Alexis Mas <alexis @ holla.com>
+ * @author Axxiss
  */
 public class PlacesParams extends RequestParams {
     private static final String TAG = "PlacesParams";

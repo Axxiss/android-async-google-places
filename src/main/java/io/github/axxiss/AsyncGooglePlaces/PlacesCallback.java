@@ -1,7 +1,7 @@
 package io.github.axxiss.AsyncGooglePlaces;
 
 /**
- * @author Alexis Mas <alexis @ holla.com>
+ * @author Axxiss
  */
 public abstract class PlacesCallback {
 

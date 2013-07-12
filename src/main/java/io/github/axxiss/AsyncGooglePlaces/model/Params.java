@@ -1,7 +1,7 @@
 package io.github.axxiss.AsyncGooglePlaces.model;
 
 /**
- * @author Alexis Mas <alexis @ holla.com>
+ * @author Axxiss
  */
 public enum Params {
 
