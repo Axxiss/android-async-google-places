@@ -42,7 +42,7 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             from components.java
-            pom.projectIdentity.artifactId = 'async-google-places'
+            pom.projectIdentity.artifactId = 'android-async-google-places'
 
 
             artifact sourceJar
@@ -79,5 +79,8 @@ sourceSets {
 dependencies {
     compile 'com.google.code.gson:gson:2.2.4'
     compile 'com.loopj.android:android-async-http:1.4.3'
+    compile('com.google.android:android:4.1.1.4') {
+        transitive = false
+    }
 }
 

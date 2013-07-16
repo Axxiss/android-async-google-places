@@ -3,22 +3,22 @@ package io.github.axxiss.AsyncGooglePlaces;
 /**
  * @author Axxiss
  */
-public class Settings {
-    private static final String TAG = "Settings";
+public class PlacesSettings {
+    private static final String TAG = "PlacesSettings";
 
-    private static Settings sInstance;
+    private static PlacesSettings sInstance;
 
     /**
      * Google Places API key.
      */
     private String mApiKey;
 
-    private Settings() {
+    private PlacesSettings() {
     }
 
-    public static Settings getInstance() {
+    public static PlacesSettings getInstance() {
         if (sInstance == null) {
-            sInstance = new Settings();
+            sInstance = new PlacesSettings();
         }
 
         return sInstance;

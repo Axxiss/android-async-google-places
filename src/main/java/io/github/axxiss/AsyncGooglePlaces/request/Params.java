@@ -1,14 +1,18 @@
-package io.github.axxiss.AsyncGooglePlaces.model;
+package io.github.axxiss.AsyncGooglePlaces.request;
 
 /**
+ * Available request's params.
+ *
  * @author Axxiss
  */
 public enum Params {
 
-    KEY("KEY"),
+    KEY("key"),
     REFERENCE("reference"),
     SENSOR("sensor"),
-    QUERY("query");
+    QUERY("query"),
+    LOCATION("location"),
+    RADIUS("radius");
 
     private String mValue;
 
