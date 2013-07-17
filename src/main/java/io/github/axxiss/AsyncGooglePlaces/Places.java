@@ -113,7 +113,9 @@ public class Places {
     }
 
     /**
-     * Send a localized search request.
+     * Send a localized search request. The {@link Response} will contain an array of {@link io.github.axxiss
+     * .AsyncGooglePlaces.model.PlaceOverview}
+     * as result.
      *
      * @param query    The query
      * @param callback
