@@ -20,7 +20,7 @@ public class PlaceOverview {
 
     private String[] type;
 
-    private Location geometry;
+    private Geometry geometry;
 
     public Event[] getEvents() {
         return events;
@@ -54,7 +54,15 @@ public class PlaceOverview {
         return type;
     }
 
-    public Location getGeometry() {
+    public Geometry getGeometry() {
         return geometry;
+    }
+
+    public static class Geometry {
+        Location location;
+
+        public Location getLocation() {
+            return location;
+        }
     }
 }

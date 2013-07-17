@@ -1,7 +1,5 @@
 package io.github.axxiss.AsyncGooglePlaces;
 
-import io.github.axxiss.AsyncGooglePlaces.request.Response;
-
 /**
  * @author Axxiss
  */
@@ -11,7 +9,7 @@ public abstract class PlacesCallback {
      * Called when a successful response is received. Successful means that all
      * the parameter were correct and the server sent the response normally.
      */
-    public abstract void onSuccess(Response response);
+    public abstract void onSuccess(Object response);
 
     /**
      * When there is an error on the connection, something went wrong or a malformed

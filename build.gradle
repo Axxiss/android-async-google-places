@@ -4,7 +4,7 @@ apply plugin: 'maven-publish'
 apply plugin: 'signing'
 
 
-group = 'io.github.axxiss'
+group = 'io.github.axxiss.android'
 version = '0.1.0-SNAPSHOT'
 description = 'Asynchronous Google Places Android Wrapper'
 
@@ -42,7 +42,7 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             from components.java
-            pom.projectIdentity.artifactId = 'android-async-google-places'
+            pom.projectIdentity.artifactId = 'async-google-places'
 
 
             artifact sourceJar

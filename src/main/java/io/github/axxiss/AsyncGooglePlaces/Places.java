@@ -1,11 +1,14 @@
 package io.github.axxiss.AsyncGooglePlaces;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.BinaryHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import io.github.axxiss.AsyncGooglePlaces.request.Params;
 import io.github.axxiss.AsyncGooglePlaces.request.PlacesParams;
@@ -14,6 +17,8 @@ import io.github.axxiss.AsyncGooglePlaces.request.Response;
 import java.lang.reflect.Type;
 
 /**
+ * Before starting with the requests, {@link PlacesSettings#setApiKey(String)} must be called.
+ *
  * @author Axxiss
  */
 public class Places {
@@ -59,6 +64,13 @@ public class Places {
      */
     private static AsyncHttpClient mHttpClient = new AsyncHttpClient();
 
+    /**
+     * Send an request to the specified URL
+     *
+     * @param url      request's url.
+     * @param params   reuqest's params
+     * @param callback
+     */
     private static void sendRequest(final String url, final RequestParams params, final PlacesCallback callback) {
         AsyncHttpResponseHandler handler = new AsyncHttpResponseHandler() {
             @Override
@@ -116,5 +128,35 @@ public class Places {
         params.put(Params.RADIUS.getValue(), radius);
 
         sendRequest(TEXT, params, callback);
+    }
+
+    /**
+     * Download an icon's image.
+     *
+     * @param url      icon's url obtained from {@link io.github.axxiss.AsyncGooglePlaces.model.PlaceOverview#getIcon()}
+     * @param callback
+     */
+    public static void downloadIcon(String url, final PlacesCallback callback) {
+
+        BinaryHttpResponseHandler handler = new BinaryHttpResponseHandler() {
+            @Override
+            public void onSuccess(byte[] data) {
+                if (data == null) {
+                    callback.onException(new NullPointerException());
+                }
+
+                Bitmap b = BitmapFactory.decodeByteArray(data, 0, data.length);
+
+                callback.onSuccess(b);
+            }
+
+            @Override
+            public void onFailure(Throwable error, String content) {
+                Log.d(TAG, content);
+                callback.onException(new Exception(error));
+            }
+        };
+
+        mHttpClient.get(url, handler);
     }
 }

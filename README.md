@@ -10,8 +10,8 @@ Install
 Add the dependency to your build system or download the jar from [Sonatype][1].
 
     <dependency>
-        <groupId>io.github.axxiss</groupId>
-        <artifactId>android-async-google-places</artifactId>
+        <groupId>io.github.axxiss.android</groupId>
+        <artifactId>async-google-places</artifactId>
         <version>0.1.0-SNAPSHOT</version>
     </dependency>
 
