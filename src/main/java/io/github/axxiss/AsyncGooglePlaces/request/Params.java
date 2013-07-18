@@ -12,7 +12,8 @@ public enum Params {
     SENSOR("sensor"),
     QUERY("query"),
     LOCATION("location"),
-    RADIUS("radius");
+    RADIUS("radius"),
+    TYPE("type");
 
     private String mValue;
 

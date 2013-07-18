@@ -43,23 +43,6 @@ public class Places {
     private static final String PHOTO = BASE + "photo?";
 
     /**
-     * Possible response status value.
-     */
-    private static final class Status {
-        private static final String OK = "OK";
-
-        private static final String UNKNOW_ERROR = "UNKNOW_ERROR";
-
-        private static final String ZERO_RESULTS = "ZERO_RESULTS";
-
-        private static final String OVER_QUERY_LIMIT = "OVER_QUERY_LIMIT";
-
-        private static final String INVALID_REQUEST = "INVALID_REQUEST";
-
-        private static final String NOT_FOUND = "NOT_FOUND";
-    }
-
-    /**
      * Android async http client.
      */
     private static AsyncHttpClient mHttpClient = new AsyncHttpClient();
@@ -120,8 +103,8 @@ public class Places {
      * @param query    The query
      * @param callback
      */
-    public static void searchNearby(final String query, final double lat, final double lng, int radius,
-                                    final PlacesCallback callback) {
+    public static void textSearch(final String query, final double lat, final double lng, int radius,
+                                  final PlacesCallback callback) {
         String location = String.format("%s,%s", String.valueOf(lat), String.valueOf(lng));
 
         PlacesParams params = new PlacesParams();
@@ -130,6 +113,30 @@ public class Places {
         params.put(Params.RADIUS.getValue(), radius);
 
         sendRequest(TEXT, params, callback);
+    }
+
+    /**
+     * Request a nearby search.
+     *
+     * @param type     filter the search to one type
+     * @param lat
+     * @param lng
+     * @param radius
+     * @param callback
+     */
+    public static void nearbySearch(final Place type, final double lat, final double lng, int radius,
+                                    final PlacesCallback callback) {
+        String location = String.format("%s,%s", String.valueOf(lat), String.valueOf(lng));
+
+        PlacesParams params = new PlacesParams();
+        params.put(Params.LOCATION.getValue(), location);
+        params.put(Params.RADIUS.getValue(), radius);
+
+        if (type != null) {
+            params.put(Params.TYPE.getValue(), type.getValue());
+        }
+
+        sendRequest(NEARBY, params, callback);
     }
 
     /**
@@ -160,5 +167,22 @@ public class Places {
         };
 
         mHttpClient.get(url, handler);
+    }
+
+    /**
+     * Possible response status value.
+     */
+    private static final class Status {
+        private static final String OK = "OK";
+
+        private static final String UNKNOW_ERROR = "UNKNOW_ERROR";
+
+        private static final String ZERO_RESULTS = "ZERO_RESULTS";
+
+        private static final String OVER_QUERY_LIMIT = "OVER_QUERY_LIMIT";
+
+        private static final String INVALID_REQUEST = "INVALID_REQUEST";
+
+        private static final String NOT_FOUND = "NOT_FOUND";
     }
 }
