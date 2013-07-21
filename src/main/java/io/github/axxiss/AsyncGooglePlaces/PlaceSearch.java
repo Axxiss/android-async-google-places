@@ -21,8 +21,8 @@ import java.lang.reflect.Type;
  *
  * @author Axxiss
  */
-public class Places {
-    private static final String TAG = "Places";
+public class PlaceSearch {
+    private static final String TAG = "PlaceSearch";
 
     private static final String BASE = "https://maps.googleapis.com/maps/api/place/";
 
@@ -133,7 +133,7 @@ public class Places {
         params.put(Params.RADIUS.getValue(), radius);
 
         if (type != null) {
-            params.put(Params.TYPE.getValue(), type.getValue());
+            params.put(Params.TYPES.getValue(), type.getValue());
         }
 
         sendRequest(NEARBY, params, callback);

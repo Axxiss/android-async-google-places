@@ -9,7 +9,7 @@ public class PlacesSettings {
     private static PlacesSettings sInstance;
 
     /**
-     * Google Places API key.
+     * Google PlaceSearch API key.
      */
     private String mApiKey;
 

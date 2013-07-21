@@ -13,7 +13,7 @@ public enum Params {
     QUERY("query"),
     LOCATION("location"),
     RADIUS("radius"),
-    TYPE("type");
+    TYPES("types");
 
     private String mValue;
 
