@@ -3,11 +3,24 @@ apply plugin: 'idea'
 apply plugin: 'maven-publish'
 apply plugin: 'signing'
 
-
+// Project Info
 group = 'io.github.axxiss.android'
-version = '0.1.0-SNAPSHOT'
-description = 'Asynchronous Google Places Android Wrapper'
+version = '0.1.0'
+description = 'Android lib for accessing Google Places API asynchronously'
 
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+
+dependencies {
+    compile 'com.google.code.gson:gson:2.2.4'
+    compile 'com.loopj.android:android-async-http:1.4.3'
+    compile('com.google.android:android:4.1.1.4') {
+        transitive = false
+    }
+}
 
 
 def isSnapshot = version.contains("SNAPSHOT")
@@ -16,37 +29,133 @@ def mavenCentralRepo = isSnapshot ?
     'https://oss.sonatype.org/content/repositories/snapshots/' :
     'https://oss.sonatype.org/service/local/staging/deploy/maven2';
 
+/**
+ * Artifacts
+ */
 
-repositories {
-    mavenCentral()
-    mavenLocal()
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
 }
 
+task sourceJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
 
-signing {
+ext {
+    pomFilePath = "${project.projectDir}/tmp/pom.xml"
+    pomFile = file(pomFilePath)
+}
+
+configurations {
+    pom
+}
+
+artifacts {
+    archives jar
+    archives sourceJar
+    archives javadocJar
+    if (pomFile.exists()) {
+        pom pomFile
+    }
+}
+
+/**
+ * Signing
+ */
+
+
+task signJars(type: Sign, dependsOn: [jar, javadocJar, sourceJar]) {
     sign configurations.archives
 }
 
-
-task sourceJar(type: Jar) {
-    from sourceSets.main.allJava
-    classifier 'sources'
+// defining which tasks should be called
+if (project.ext.pomFile.exists()) {
+    task preparePublication(dependsOn: [signJars, signPom])
+} else {
+    task preparePublication(dependsOn: signJars)
 }
 
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    from javadoc.destinationDir
-    classifier 'javadoc'
+// extract signatures and add classifier and extension to them
+def getSignatureFiles = {
+    def allFiles = project.tasks.signJars.signatureFiles.collect { it }
+    def signedSources = allFiles.find { it.name.contains('-sources') }
+    def signedJavadoc = allFiles.find { it.name.contains('-javadoc') }
+    def signedJar = (allFiles - [signedSources, signedJavadoc])[0]
+    return [
+            [archive: signedSources, classifier: 'sources', extension: 'jar.asc'],
+            [archive: signedJavadoc, classifier: 'javadoc', extension: 'jar.asc'],
+            [archive: signedJar, classifier: null, extension: 'jar.asc']
+    ]
+}
+// extract pom signature
+def getPomSignature = {
+    return project.tasks.signPom.signatureFiles.collect { it }[0]
+}
+
+signing {
+    sign configurations.pom
 }
 
 publishing {
     publications {
-        mavenJava(MavenPublication) {
+        gpgJars(MavenPublication) {
+            getSignatureFiles().each { signature ->
+                artifact(signature.archive) {
+                    classifier = signature.classifier
+                    extension = signature.extension
+                }
+            }
+        }
+
+        if (project.ext.pomFile.exists()) {
+            gpgPom(MavenPublication) {
+                artifact(getPomSignature()) {
+                    classifier = null
+                    extension = 'pom.asc'
+                }
+            }
+        }
+
+
+        jar(MavenPublication) {
             from components.java
             pom.projectIdentity.artifactId = 'async-google-places'
 
+            pom.withXml {
+                asNode().children().last() + {
+                    resolveStrategy = Closure.DELEGATE_FIRST
+                    name 'Android Async Google Places API'
+                    description 'Android lib for accessing Google Places API asynchronously'
+                    url 'https://github.com/Axxiss/android-async-google-places'
+                    inceptionYear '2013'
+
+                    scm {
+                        url 'https://github.com/Axxiss/android-async-google-places'
+                        connection 'scm:git:git://github.com/Axxiss/android-async-google-places.git'
+                        developerConnection 'scm:git:ssh:git@github.com:Axxiss/android-async-google-places.git'
+                    }
+
+                    licenses {
+                        license {
+                            name 'The Apache Software License, Version 2.0'
+                            url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                            distribution 'repo'
+                        }
+                    }
+
+                    developers {
+                        developer {
+                            id 'Axxiss'
+                            name 'Alexis Mas'
+                            email 'alexismas@about.me'
+                        }
+                    }
+                }
+            }
 
             artifact sourceJar
-
             artifact javadocJar
         }
     }
@@ -76,11 +185,5 @@ sourceSets {
     }
 }
 
-dependencies {
-    compile 'com.google.code.gson:gson:2.2.4'
-    compile 'com.loopj.android:android-async-http:1.4.3'
-    compile('com.google.android:android:4.1.1.4') {
-        transitive = false
-    }
-}
+
 
