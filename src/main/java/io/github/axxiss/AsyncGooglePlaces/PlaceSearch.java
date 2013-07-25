@@ -117,6 +117,8 @@ public class PlaceSearch {
 
     /**
      * Request a nearby search.
+     * <p/>
+     * To do a search ranked by distance set {@code radius} to a negative value
      *
      * @param type     filter the search to one type
      * @param lat
@@ -130,7 +132,12 @@ public class PlaceSearch {
 
         PlacesParams params = new PlacesParams();
         params.put(Params.LOCATION.getValue(), location);
-        params.put(Params.RADIUS.getValue(), radius);
+
+        if (radius < 0) {
+            params.put(Params.RANK_BY.getValue(), "distance");
+        } else {
+            params.put(Params.RADIUS.getValue(), radius);
+        }
 
         if (type != null) {
             params.put(Params.TYPES.getValue(), type.getValue());

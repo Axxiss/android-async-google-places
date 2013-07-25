@@ -52,7 +52,7 @@ Replaces the parameter with your needed values
 License
 =======
 
-    Copyright 2012 Alexis Mas
+    Copyright 2013 Alexis Mas
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.

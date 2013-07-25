@@ -13,7 +13,8 @@ public enum Params {
     QUERY("query"),
     LOCATION("location"),
     RADIUS("radius"),
-    TYPES("types");
+    TYPES("types"),
+    RANK_BY("rankby");
 
     private String mValue;
 
