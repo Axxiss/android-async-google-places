@@ -1,6 +1,6 @@
 apply plugin: 'java'
 apply plugin: 'idea'
-apply plugin: 'maven-publish'
+apply plugin: 'maven'
 apply plugin: 'signing'
 
 // Project Info
@@ -43,133 +43,60 @@ task sourceJar(type: Jar) {
     from sourceSets.main.allSource
 }
 
-ext {
-    pomFilePath = "${project.projectDir}/tmp/pom.xml"
-    pomFile = file(pomFilePath)
-}
-
-configurations {
-    pom
-}
 
 artifacts {
     archives jar
     archives sourceJar
     archives javadocJar
-    if (pomFile.exists()) {
-        pom pomFile
-    }
 }
 
-/**
- * Signing
- */
 
-
-task signJars(type: Sign, dependsOn: [jar, javadocJar, sourceJar]) {
+signing {
     sign configurations.archives
 }
 
-// defining which tasks should be called
-if (project.ext.pomFile.exists()) {
-    task preparePublication(dependsOn: [signJars, signPom])
-} else {
-    task preparePublication(dependsOn: signJars)
-}
+uploadArchives {
+    repositories.mavenDeployer {
+        configuration = configurations.archives
 
-// extract signatures and add classifier and extension to them
-def getSignatureFiles = {
-    def allFiles = project.tasks.signJars.signatureFiles.collect { it }
-    def signedSources = allFiles.find { it.name.contains('-sources') }
-    def signedJavadoc = allFiles.find { it.name.contains('-javadoc') }
-    def signedJar = (allFiles - [signedSources, signedJavadoc])[0]
-    return [
-            [archive: signedSources, classifier: 'sources', extension: 'jar.asc'],
-            [archive: signedJavadoc, classifier: 'javadoc', extension: 'jar.asc'],
-            [archive: signedJar, classifier: null, extension: 'jar.asc']
-    ]
-}
-// extract pom signature
-def getPomSignature = {
-    return project.tasks.signPom.signatureFiles.collect { it }[0]
-}
+        beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
-signing {
-    sign configurations.pom
-}
-
-publishing {
-    publications {
-        gpgJars(MavenPublication) {
-            getSignatureFiles().each { signature ->
-                artifact(signature.archive) {
-                    classifier = signature.classifier
-                    extension = signature.extension
-                }
-            }
-        }
-
-        if (project.ext.pomFile.exists()) {
-            gpgPom(MavenPublication) {
-                artifact(getPomSignature()) {
-                    classifier = null
-                    extension = 'pom.asc'
-                }
-            }
+        repository(url: mavenCentralRepo) {
+            authentication(userName: sonatypeUser, password: sonatypePass)
         }
 
 
-        jar(MavenPublication) {
-            from components.java
-            pom.projectIdentity.artifactId = 'async-google-places'
+        pom.project {
+            name 'Android Async Google Places API'
+            description 'Android lib for accessing Google Places API asynchronously'
+            url 'https://github.com/Axxiss/android-async-google-places'
+            inceptionYear '2013'
 
-            pom.withXml {
-                asNode().children().last() + {
-                    resolveStrategy = Closure.DELEGATE_FIRST
-                    name 'Android Async Google Places API'
-                    description 'Android lib for accessing Google Places API asynchronously'
-                    url 'https://github.com/Axxiss/android-async-google-places'
-                    inceptionYear '2013'
+            scm {
+                url 'https://github.com/Axxiss/android-async-google-places'
+                connection 'scm:git:git://github.com/Axxiss/android-async-google-places.git'
+                developerConnection 'scm:git:ssh:git@github.com:Axxiss/android-async-google-places.git'
+            }
 
-                    scm {
-                        url 'https://github.com/Axxiss/android-async-google-places'
-                        connection 'scm:git:git://github.com/Axxiss/android-async-google-places.git'
-                        developerConnection 'scm:git:ssh:git@github.com:Axxiss/android-async-google-places.git'
-                    }
-
-                    licenses {
-                        license {
-                            name 'The Apache Software License, Version 2.0'
-                            url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                            distribution 'repo'
-                        }
-                    }
-
-                    developers {
-                        developer {
-                            id 'Axxiss'
-                            name 'Alexis Mas'
-                            email 'alexismas@about.me'
-                        }
-                    }
+            licenses {
+                license {
+                    name 'The Apache Software License, Version 2.0'
+                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    distribution 'repo'
                 }
             }
 
-            artifact sourceJar
-            artifact javadocJar
-        }
-    }
-
-    repositories {
-        maven {
-            credentials {
-                username sonatypeUser
-                password sonatypePass
+            developers {
+                developer {
+                    id 'Axxiss'
+                    name 'Alexis Mas'
+                    email 'alexismas@about.me'
+                }
             }
-            url mavenCentralRepo
         }
     }
 }
+
 
 sourceSets {
     main {
