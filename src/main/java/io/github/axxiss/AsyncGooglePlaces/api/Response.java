@@ -1,4 +1,4 @@
-package io.github.axxiss.AsyncGooglePlaces.request;
+package io.github.axxiss.AsyncGooglePlaces.api;
 
 import io.github.axxiss.AsyncGooglePlaces.model.PlaceOverview;
 

@@ -1,11 +1,12 @@
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'maven'
+apply plugin: 'maven-publish'
 apply plugin: 'signing'
 
 // Project Info
 group = 'io.github.axxiss.android'
-version = '0.1.0'
+version = '0.2.0-SNAPSHOT'
 description = 'Android lib for accessing Google Places API asynchronously'
 
 repositories {
@@ -112,5 +113,38 @@ sourceSets {
     }
 }
 
+//for local publishing
+publishing {
+    publications {
+
+        jar(MavenPublication) {
+            from components.java
+            pom.projectIdentity.artifactId = 'async-google-places'
+
+            pom.withXml {
+                asNode().children().last() + {
+                    resolveStrategy = Closure.DELEGATE_FIRST
+                    name 'Android Async Google Places API'
+                    description 'Android lib for accessing Google Places API asynchronously'
+                    url 'https://github.com/Axxiss/android-async-google-places'
+                    inceptionYear '2013'
+                }
+            }
+
+            artifact sourceJar
+            artifact javadocJar
+        }
+    }
+
+    repositories {
+        maven {
+            credentials {
+                username sonatypeUser
+                password sonatypePass
+            }
+            url mavenCentralRepo
+        }
+    }
+}
 
 

@@ -1,4 +1,4 @@
-package io.github.axxiss.AsyncGooglePlaces;
+package io.github.axxiss.AsyncGooglePlaces.api;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,19 +9,20 @@ import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.BinaryHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
-import io.github.axxiss.AsyncGooglePlaces.request.Params;
-import io.github.axxiss.AsyncGooglePlaces.request.PlacesParams;
-import io.github.axxiss.AsyncGooglePlaces.request.Response;
+import io.github.axxiss.AsyncGooglePlaces.ApiPlacesException;
+import io.github.axxiss.AsyncGooglePlaces.PlacesCallback;
 
 import java.lang.reflect.Type;
 
 /**
- * Before starting with the requests, {@link PlacesSettings#setApiKey(String)} must be called.
+ * Before starting with the requests, {@link io.github.axxiss.AsyncGooglePlaces.PlacesSettings#setApiKey(String)}
+ * must be called.
  *
  * @author Axxiss
  */
 public class PlaceSearch {
+    public static final int FLAG_RANK_BY_DISTANCE = -1;
+
     private static final String TAG = "PlaceSearch";
 
     private static final String BASE = "https://maps.googleapis.com/maps/api/place/";
@@ -50,11 +51,13 @@ public class PlaceSearch {
     /**
      * Send an request to the specified URL
      *
-     * @param url      request's url.
      * @param params   reuqest's params
      * @param callback
      */
-    private static void sendRequest(final String url, final RequestParams params, final PlacesCallback callback) {
+    public static void sendRequest(final PlacesParams params, final PlacesCallback callback) {
+
+        final String url = params.getUrl();
+
         AsyncHttpResponseHandler handler = new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(String asyncResponse) {
@@ -100,50 +103,28 @@ public class PlaceSearch {
      * .AsyncGooglePlaces.model.PlaceOverview}
      * as result.
      *
-     * @param query    The query
-     * @param callback
+     * @param query The query
      */
-    public static void textSearch(final String query, final double lat, final double lng, int radius,
-                                  final PlacesCallback callback) {
-        String location = String.format("%s,%s", String.valueOf(lat), String.valueOf(lng));
-
+    public static PlacesParams textSearch(final String query, final double lat, final double lng, int radius) {
         PlacesParams params = new PlacesParams();
-        params.put(Params.LOCATION.getValue(), location);
-        params.put(Params.QUERY.getValue(), query);
-        params.put(Params.RADIUS.getValue(), radius);
-
-        sendRequest(TEXT, params, callback);
+        params.setUrl(TEXT);
+        params.setLocation(lat, lng).setRadius(radius).setQuery(query);
+        return params;
     }
 
     /**
-     * Request a nearby search.
-     * <p/>
-     * To do a search ranked by distance set {@code radius} to a negative value
+     * Set mandatory params of nearby search request.
      *
-     * @param type     filter the search to one type
      * @param lat
      * @param lng
      * @param radius
-     * @param callback
+     * @return request params.
      */
-    public static void nearbySearch(final Place type, final double lat, final double lng, int radius,
-                                    final PlacesCallback callback) {
-        String location = String.format("%s,%s", String.valueOf(lat), String.valueOf(lng));
-
+    public static PlacesParams nearbySearch(final double lat, final double lng, int radius) {
         PlacesParams params = new PlacesParams();
-        params.put(Params.LOCATION.getValue(), location);
-
-        if (radius < 0) {
-            params.put(Params.RANK_BY.getValue(), "distance");
-        } else {
-            params.put(Params.RADIUS.getValue(), radius);
-        }
-
-        if (type != null) {
-            params.put(Params.TYPES.getValue(), type.getValue());
-        }
-
-        sendRequest(NEARBY, params, callback);
+        params.setUrl(NEARBY);
+        params.setLocation(lat, lng).setRadius(radius);
+        return params;
     }
 
     /**

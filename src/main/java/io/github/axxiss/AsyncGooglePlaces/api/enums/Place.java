@@ -1,4 +1,4 @@
-package io.github.axxiss.AsyncGooglePlaces;
+package io.github.axxiss.AsyncGooglePlaces.api.enums;
 
 /**
  * @author Axxiss
