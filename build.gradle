@@ -9,10 +9,14 @@ group = 'io.github.axxiss.android'
 version = '0.2.0-SNAPSHOT'
 description = 'Android lib for accessing Google Places API asynchronously'
 
-repositories {
-    mavenCentral()
-    mavenLocal()
-}
+
+sonatypeUser =
+    sonatypePass =
+
+        repositories {
+            mavenCentral()
+            mavenLocal()
+        }
 
 
 dependencies {
