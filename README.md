@@ -12,12 +12,8 @@ Add the dependency to your build system or download the jar from [Sonatype][1].
     <dependency>
         <groupId>io.github.axxiss.android</groupId>
         <artifactId>async-google-places</artifactId>
-        <version>0.1.0-SNAPSHOT</version>
+        <version>0.1.0</version>
     </dependency>
-
-
-In the coming days, the first stable release will be out and synced to Maven Central, on the meantime add sonatype as a
-Maven repository.
 
 
 
