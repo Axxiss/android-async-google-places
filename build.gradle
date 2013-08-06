@@ -10,13 +10,13 @@ version = '0.2.0-SNAPSHOT'
 description = 'Android lib for accessing Google Places API asynchronously'
 
 
-sonatypeUser =
-    sonatypePass =
+sonatypeUser = 'user'
+sonatypePass = 'pass'
 
-        repositories {
-            mavenCentral()
-            mavenLocal()
-        }
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
 
 
 dependencies {
