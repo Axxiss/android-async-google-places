@@ -1,6 +1,8 @@
 package io.github.axxiss.AsyncGooglePlaces.api;
 
 import io.github.axxiss.AsyncGooglePlaces.PlacesSettings;
+import io.github.axxiss.AsyncGooglePlaces.api.enums.Lang;
+import io.github.axxiss.AsyncGooglePlaces.api.enums.Place;
 import io.github.axxiss.AsyncGooglePlaces.api.enums.RankBy;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,7 +10,6 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 /**
  * @author Alexis Mas <alexis @ holla.com>
@@ -22,7 +23,7 @@ public class RequestParamsTest {
 
     private void assertParam(RequestParams params, String name, String value) {
         String pair = String.format("%s=%s", name, value);
-        assertTrue(params.getParams().toString().contains(pair));
+        assertTrue("Wrong key-value", params.getParams().toString().contains(pair));
     }
 
     private void assertParam(RequestParams params, String name, boolean value) {
@@ -72,12 +73,16 @@ public class RequestParamsTest {
 
     @Test
     public void testSetTypes() {
-        fail();
+        RequestParams params = new RequestParams();
+        params.setTypes(Place.Bakery, Place.Bar, Place.Restaurant);
+        assertParam(params, "types", "bakery|bar|restaurant");
     }
 
     @Test
     public void testSetLanguage() {
-        fail();
+        RequestParams params = new RequestParams();
+        params.setLanguage(Lang.DANISH);
+        assertParam(params, "language", "da");
     }
 
     @Test

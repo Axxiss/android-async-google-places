@@ -113,11 +113,11 @@ public class RequestParams {
      * @return
      * @see {@link Place}
      */
-    public RequestParams setTypes(Place[] places) {
+    public RequestParams setTypes(Place... places) {
         final String divider = "|";
         String types = "";
         for (Place place : places) {
-            types = place.getValue() + divider;
+            types += place.getValue() + divider;
         }
 
         types.substring(0, types.length() - 1);
@@ -136,7 +136,6 @@ public class RequestParams {
      */
     public RequestParams setLanguage(Lang langCode) {
         mParams.put(Params.LANGUAGE.getValue(), langCode.getValue());
-
         return this;
     }
 
