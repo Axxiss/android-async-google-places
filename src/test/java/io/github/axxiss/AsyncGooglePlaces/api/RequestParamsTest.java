@@ -92,4 +92,18 @@ public class RequestParamsTest {
         params.setKeyword(keyword);
         assertParam(params, "keyword", keyword);
     }
+
+    @Test
+    public void testSetSensor() {
+        RequestParams params = new RequestParams();
+        params.setSensor(false);
+        assertParam(params, "sensor", false);
+    }
+
+    @Test
+    public void testSetApiKey() {
+        RequestParams params = new RequestParams();
+        params.setApiKey(API_KEY);
+        assertParam(params, "key", API_KEY);
+    }
 }

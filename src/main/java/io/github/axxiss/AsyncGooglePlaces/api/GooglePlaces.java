@@ -1,10 +1,10 @@
 package io.github.axxiss.AsyncGooglePlaces.api;
 
 import io.github.axxiss.AsyncGooglePlaces.model.PlaceOverview;
+import retrofit.Callback;
 import retrofit.http.GET;
 import retrofit.http.Query;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -12,5 +12,5 @@ import java.util.Map;
  */
 public interface GooglePlaces {
     @GET("nearbysearch/output{?parameters}")
-    List<PlaceOverview> nearbySearch(@Query("parameters") Map<String, String> parameters);
+    void nearbySearch(@Query("parameters") Map<String, String> parameters, Callback<PlaceOverview[]> cb);
 }

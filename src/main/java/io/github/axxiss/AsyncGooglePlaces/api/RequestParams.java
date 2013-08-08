@@ -31,8 +31,8 @@ public class RequestParams {
      * @see {@link PlacesSettings#setApiKey(String)}.
      */
     public RequestParams(boolean sensor) {
-        mParams.put(Params.KEY.getValue(), PlacesSettings.getInstance().getApiKey());
-        mParams.put(Params.SENSOR.getValue(), String.valueOf(sensor));
+        setSensor(sensor);
+        setApiKey(PlacesSettings.getInstance().getApiKey());
     }
 
     public RequestParams() {
@@ -148,6 +148,31 @@ public class RequestParams {
      */
     public RequestParams setKeyword(String keyword) {
         mParams.put(Params.KEYWORD.getValue(), keyword);
+        return this;
+    }
+
+    /**
+     * Indicates whether or not the Place request came from a device using a location sensor (e.g. a GPS) to determine
+     * the location sent in this request. True by default.
+     *
+     * @param sensor
+     * @return
+     */
+    public RequestParams setSensor(boolean sensor) {
+        mParams.put(Params.SENSOR.getValue(), String.valueOf(sensor));
+        return this;
+    }
+
+    /**
+     * Your application's API key. This key identifies your application for purposes of quota management and so that
+     * Places added from your application are made immediately available to your app. Visit the
+     * <a href="https://code.google.com/apis/console">APIs Console</a> to create  an API Project and obtain your key.
+     *
+     * @param apiKey
+     * @return
+     */
+    public RequestParams setApiKey(String apiKey) {
+        mParams.put(Params.KEY.getValue(), apiKey);
         return this;
     }
 }
