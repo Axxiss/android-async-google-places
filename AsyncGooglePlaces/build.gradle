@@ -15,6 +15,7 @@ apply plugin: 'android'
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
 apply plugin: 'signing'
+apply plugin: 'android-test'
 
 //This must be on gradle.properties
 sonatypeUser = 'user'
@@ -41,9 +42,6 @@ android {
 dependencies {
     compile 'com.google.code.gson:gson:2.2.4'
     compile 'com.loopj.android:android-async-http:1.4.3'
-
-    instrumentTestCompile 'junit:junit:4.+'
-//    testCompile 'org.robolectric:robolectric:2.1.+:jar-with-dependencies'
 }
 
 

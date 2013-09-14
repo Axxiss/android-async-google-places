@@ -15,8 +15,6 @@ Add the dependency to your build system or download the jar from [Sonatype][1].
         <version>0.1.0</version>
     </dependency>
 
-
-
 Usage
 =====
 
@@ -26,23 +24,32 @@ IMPORTANT! Currently Google Places API doesn't support Android Key, so you must 
 
     PlacesSettings.getInstance().setApiKey("yourApiKey");
 
-2. Make the request!
+2. Build the request
 
 Replaces the parameter with your needed values
 
-     Places.searchNearby(query, lat, lng, radius, new PlacesCallback() {
+    //Set mandatory request params
+    PlaceParams params =  PlacesSearch.searchNearby(query, lat, lng, radius);
+
+    //add optional params
+    params.setKeyword("");
+
+3. Send the request
+
+    PlacesCallback callback = new new PlacesCallback() {
         @Override
         public void onSuccess(final Response response) {
-            //do something with the result
+          //do something with the result
 
         }
 
         @Override
         public void onException(final Exception exception) {
-            //To change body of implemented methods use File | Settings | File Templates.
+          //handle the exception
         }
-    });
+    }
 
+    PlacesClient.sendRequest(params, callback);
 
 
 License
