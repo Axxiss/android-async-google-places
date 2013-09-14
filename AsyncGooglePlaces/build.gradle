@@ -1,6 +1,6 @@
 // Project Info
 group = 'io.github.axxiss'
-version = '0.3.0-SNAPSHOT'
+version = '0.3.0'
 description = 'Android lib for accessing Google Places API asynchronously'
 
 buildscript {
@@ -27,8 +27,8 @@ repositories {
 }
 
 android {
-    compileSdkVersion 17
-    buildToolsVersion "17.0.0"
+    compileSdkVersion 18
+    buildToolsVersion "18.0.1"
 
     defaultConfig {
         versionCode 1
@@ -49,6 +49,17 @@ def isSnapshot = version.contains("SNAPSHOT")
 def mavenCentralRepo = isSnapshot ?
         'https://oss.sonatype.org/content/repositories/snapshots/' :
         'https://oss.sonatype.org/service/local/staging/deploy/maven2';
+
+apply plugin: 'maven'
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository url: 'file://' + new File(System.getProperty('user.home'), '.m2/repository').absolutePath
+        }
+    }
+}
+task install(dependsOn: uploadArchives)
 
 /**
  * Artifacts
@@ -118,37 +129,3 @@ def mavenCentralRepo = isSnapshot ?
 //    }
 //}
 //
-////for local publishing
-//publishing {
-//    publications {
-//
-//        jar(MavenPublication) {
-//            from components.java
-//            pom.projectIdentity.artifactId = 'async-google-places'
-//
-//            pom.withXml {
-//                asNode().children().last() + {
-//                    resolveStrategy = Closure.DELEGATE_FIRST
-//                    name 'Android Async Google Places API'
-//                    description 'Android lib for accessing Google Places API asynchronously'
-//                    url 'https://github.com/Axxiss/android-async-google-places'
-//                    inceptionYear '2013'
-//                }
-//            }
-//
-//            artifact sourceJar
-//            artifact javadocJar
-//        }
-//    }
-//
-//    repositories {
-//        maven {
-//            credentials {
-//                username sonatypeUser
-//                password sonatypePass
-//            }
-//            url mavenCentralRepo
-//        }
-//    }
-//}
-
