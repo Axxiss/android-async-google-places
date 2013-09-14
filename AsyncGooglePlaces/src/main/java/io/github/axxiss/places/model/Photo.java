@@ -1,48 +1,56 @@
 package io.github.axxiss.places.model;
 
-import java.util.List;
-
 /**
+ * The Photo service gives you access to the millions of photos stored in the Places and Google+
+ * Local database. When you search for Places using either a Place Search or Place Details request,
+ * photo references will be returned for relevant photographic content. The Photo service lets you
+ * access the referenced photos, and resize the image to the optimal size for your application.
+ *
  * @author Axxiss
  */
 public class Photo {
-    private String mReference;
 
-    private int mWidth;
+    private String photo_reference;
 
-    private int mHeight;
+    private int width;
 
-    private List<String> mAttribs;
+    private int height;
 
-    public String getReference() {
-        return mReference;
+    private String[] html_attributions;
+
+    /**
+     * A string used to identify the photo when you perform a Photo request.
+     *
+     * @return
+     */
+    public String getPhoto_reference() {
+        return photo_reference;
     }
 
-    public void setReference(final String reference) {
-        mReference = reference;
-    }
-
+    /**
+     * The maximum width of the image.
+     *
+     * @return
+     */
     public int getWidth() {
-        return mWidth;
+        return width;
     }
 
-    public void setWidth(final int width) {
-        mWidth = width;
-    }
-
+    /**
+     * The maximum height of the image.
+     *
+     * @return the height.
+     */
     public int getHeight() {
-        return mHeight;
+        return height;
     }
 
-    public void setHeight(final int height) {
-        mHeight = height;
-    }
-
-    public List<String> getAttribs() {
-        return mAttribs;
-    }
-
-    public void setAttribs(final List<String> attribs) {
-        mAttribs = attribs;
+    /**
+     * Contains any required attributions. This field will always be present, but may be empty.
+     *
+     * @return
+     */
+    public String[] getHtml_attributions() {
+        return html_attributions;
     }
 }

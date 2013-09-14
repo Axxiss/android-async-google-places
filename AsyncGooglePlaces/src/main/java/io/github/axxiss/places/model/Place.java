@@ -6,29 +6,68 @@ package io.github.axxiss.places.model;
 public class Place {
     public Event[] events;
 
-    private String formatted_address;
+    private String formatted_address = null;
 
-    private String icon;
+    private String icon = null;
 
-    private String id;
+    private String id = null;
 
-    private String name;
+    private String name = null;
 
     private double rating;
 
-    private String reference;
+    private String reference = null;
 
-    private String[] type;
+    private String[] types = null;
 
     private Geometry geometry;
 
-    private String vicinity;
+    private String vicinity = null;
 
     private OpeningHours opening_hours;
 
     private Photo[] photos;
 
     private int price_level;
+
+    private String formatted_phone_number = null;
+
+    private String international_phone_number = null;
+
+    private int utc_offset;
+
+    /**
+     * Place's phone number in its local format. For example, the formatted_phone_number for
+     * Google's Sydney, Australia office is (02) 9374 4000.
+     *
+     * @return
+     */
+    public String getFormattedPhoneNumber() {
+        return formatted_phone_number;
+    }
+
+    /**
+     * Place's phone number in international format. International format includes the country code,
+     * and is prefixed with the plus (+) sign. For example, the formatted_phone_number for
+     * Google's Sydney, Australia office is +61 2 9374 4000.
+     *
+     * @return
+     */
+    public String getInternationalPhoneNumber() {
+        return international_phone_number;
+    }
+
+    /**
+     * Returns the number of minutes this Place’s current timezone is offset from UTC. For example,
+     * for Places in Sydney, Australia during daylight saving time this would be 660 (+11 hours
+     * from UTC), and for Places in California outside of daylight saving time this would be -480
+     * (-8 hours from UTC).
+     *
+     * @return
+     */
+    public int getUtcOffset() {
+        return utc_offset;
+    }
 
     /**
      * Returns a feature name of a nearby location. Often this feature refers to a street or
@@ -153,8 +192,8 @@ public class Place {
      * @return
      * @see io.github.axxiss.places.api.enums.PlaceType
      */
-    public String[] getType() {
-        return type;
+    public String[] getTypes() {
+        return types;
     }
 
     /**

@@ -1,58 +1,62 @@
 package io.github.axxiss.places.model;
 
-import java.util.List;
-
 /**
  * @author Axxiss
  */
 public class Review {
-    private String mAuthorName;
+    private AspectRating[] aspects;
+    private String author_name;
+    private String author_url;
+    private String text;
+    private int time;
 
-    private String mAuthorUrl;
+    /**
+     * Returns a collection of AspectRating objects, each of which provides a rating of a
+     * single attribute of the establishment. The first object in the collection is considered the
+     * primary aspect.
+     *
+     * @return
+     */
+    public AspectRating[] getAspects() {
+        return aspects;
+    }
 
-    private long mTime;
-
-    private List<Aspect> mAspects;
-
-    private String mText;
-
+    /**
+     * The name of the user who submitted the review. Anonymous reviews are attributed to
+     * "A Google user".
+     *
+     * @return
+     */
     public String getAuthorName() {
-        return mAuthorName;
+        return author_name;
     }
 
-    public void setAuthorName(final String authorName) {
-        mAuthorName = authorName;
-    }
-
+    /**
+     * The URL to the users Google+ profile, if available.
+     *
+     * @return the url.
+     */
     public String getAuthorUrl() {
-        return mAuthorUrl;
+        return author_url;
     }
 
-    public void setAuthorUrl(final String authorUrl) {
-        mAuthorUrl = authorUrl;
-    }
-
-    public long getTime() {
-        return mTime;
-    }
-
-    public void setTime(final long time) {
-        mTime = time;
-    }
-
-    public List<Aspect> getAspects() {
-        return mAspects;
-    }
-
-    public void setAspects(final List<Aspect> aspects) {
-        mAspects = aspects;
-    }
-
+    /**
+     * Contains the user's review. When reviewing a location with Google Places, text reviews are
+     * considered optional; therefore, this field may by empty.
+     *
+     * @return the review.
+     */
     public String getText() {
-        return mText;
+        return text;
     }
 
-    public void setText(final String text) {
-        mText = text;
+    /**
+     * The time that the review was submitted, measured in the number of seconds since since
+     * midnight, January 1, 1970 UTC.
+     *
+     * @return
+     */
+    public int getTime() {
+        return time;
     }
 }
