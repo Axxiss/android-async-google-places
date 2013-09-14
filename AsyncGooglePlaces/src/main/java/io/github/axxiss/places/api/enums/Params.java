@@ -22,7 +22,8 @@ public enum Params {
     OPEN_NOW("opennow"),
     ZAGAT_SELECTED("zagatselected"),
     PAGE_TOKEN("pagetoken"),
-    LANGUAGE("language");
+    LANGUAGE("language"),
+    PAGE("pagetoken");
 
     private String mValue;
 

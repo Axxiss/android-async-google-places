@@ -4,18 +4,18 @@ import com.loopj.android.http.RequestParams;
 
 import io.github.axxiss.places.PlacesSettings;
 import io.github.axxiss.places.api.enums.Params;
-import io.github.axxiss.places.api.enums.Place;
+import io.github.axxiss.places.api.enums.PlaceType;
 import io.github.axxiss.places.api.enums.RankBy;
 
 /**
  * @author Axxiss
  */
-public class PlacesParams extends RequestParams {
-    private static final String TAG = "PlacesParams";
+public class PlaceParams extends RequestParams {
+    private static final String TAG = "PlaceParams";
 
     private String mUrl;
 
-    public PlacesParams() {
+    public PlaceParams() {
         put(Params.KEY.getValue(), PlacesSettings.getInstance().getApiKey());
         put(Params.SENSOR.getValue(), "true");
     }
@@ -36,12 +36,12 @@ public class PlacesParams extends RequestParams {
         mUrl = url;
     }
 
-    public PlacesParams setRankBy(RankBy rankBy) {
+    public PlaceParams setRankBy(RankBy rankBy) {
         put(Params.RANK_BY.getValue(), rankBy.getvalue());
         return this;
     }
 
-    public PlacesParams setRadius(int radius) {
+    public PlaceParams setRadius(int radius) {
         if (radius > 0) {
             put(Params.RADIUS.getValue(), radius);
         } else {
@@ -50,23 +50,23 @@ public class PlacesParams extends RequestParams {
         return this;
     }
 
-    public PlacesParams setLocation(final double lat, final double lng) {
+    public PlaceParams setLocation(final double lat, final double lng) {
         String location = String.format("%s,%s", String.valueOf(lat), String.valueOf(lng));
         put(Params.LOCATION.getValue(), location);
         return this;
     }
 
-    public PlacesParams setQuery(String query) {
+    public PlaceParams setQuery(String query) {
         if (query != null) {
             put(Params.QUERY.getValue(), query);
         }
         return this;
     }
 
-    public PlacesParams setTypes(Place[] places) {
+    public PlaceParams setTypes(PlaceType[] places) {
         final String divider = "|";
         String types = "";
-        for (Place place : places) {
+        for (PlaceType place : places) {
             types = place.getValue() + divider;
         }
 
@@ -76,13 +76,13 @@ public class PlacesParams extends RequestParams {
         return this;
     }
 
-    public PlacesParams setLanguage(String langCode) {
+    public PlaceParams setLanguage(String langCode) {
         put(Params.LANGUAGE.getValue(), langCode);
 
         return this;
     }
 
-    public PlacesParams setKeyword(String keyword) {
+    public PlaceParams setKeyword(String keyword) {
         put(Params.KEYWORD.getValue(), keyword);
         return this;
     }

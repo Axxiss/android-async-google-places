@@ -3,7 +3,7 @@ package io.github.axxiss.places.api.enums;
 /**
  * @author Axxiss
  */
-public enum Place {
+public enum PlaceType {
     Accounting("accounting"),
     Airport("airport"),
     AmusementPark("amusement_park"),
@@ -103,7 +103,7 @@ public enum Place {
 
     String mValue;
 
-    Place(String value) {
+    PlaceType(String value) {
         mValue = value;
     }
 

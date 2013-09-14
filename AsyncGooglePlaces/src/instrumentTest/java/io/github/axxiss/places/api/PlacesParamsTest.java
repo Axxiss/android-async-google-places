@@ -16,7 +16,7 @@ public class PlacesParamsTest {
         final double lat = 1234.44;
         final double lng = 9876.33;
 
-        PlacesParams params = new PlacesParams();
+        PlaceParams params = new PlaceParams();
         params.setLocation(lat, lng);
 
         Assert.assertTrue(params.toString().contains("location=" + lat + "," + lng));

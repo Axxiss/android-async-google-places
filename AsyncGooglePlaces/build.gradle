@@ -1,6 +1,6 @@
 // Project Info
 group = 'io.github.axxiss'
-version = '0.2.0-SNAPSHOT'
+version = '0.3.0-SNAPSHOT'
 description = 'Android lib for accessing Google Places API asynchronously'
 
 buildscript {

@@ -1,6 +1,6 @@
 package io.github.axxiss.places.api;
 
-import io.github.axxiss.places.model.PlaceOverview;
+import io.github.axxiss.places.model.Place;
 
 /**
  * The response obtained from Google's servers.
@@ -12,7 +12,7 @@ public class Response {
 
     private String[] html_attributions;
 
-    private PlaceOverview[] results;
+    private Place[] results;
 
     private String status;
 
@@ -22,7 +22,7 @@ public class Response {
         return html_attributions;
     }
 
-    public PlaceOverview[] getResults() {
+    public Place[] getResults() {
         return results;
     }
 
