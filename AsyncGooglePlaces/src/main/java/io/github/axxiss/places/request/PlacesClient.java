@@ -1,4 +1,4 @@
-package io.github.axxiss.places.api;
+package io.github.axxiss.places.request;
 
 import android.util.Log;
 
@@ -11,8 +11,9 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import java.lang.reflect.Type;
 
 import io.github.axxiss.places.ApiPlacesException;
-import io.github.axxiss.places.PlacesCallback;
-import io.github.axxiss.places.api.enums.Status;
+import io.github.axxiss.places.Response;
+import io.github.axxiss.places.callback.PlaceCallback;
+import io.github.axxiss.places.enums.Status;
 
 /**
  * Here is where the request to the server is setted up and launched.
@@ -22,6 +23,10 @@ import io.github.axxiss.places.api.enums.Status;
 public class PlacesClient {
     private static final String TAG = "PlacesClient";
 
+    private static final String BASE = "https://maps.googleapis.com/maps/api/place/";
+    private static final String OUTPUT = "/json?";
+
+
     private static AsyncHttpClient mHttpClient = new AsyncHttpClient();
 
     /**
@@ -30,9 +35,15 @@ public class PlacesClient {
      * @param params   request's params
      * @param callback
      */
-    public static void sendRequest(final PlaceParams params, final PlacesCallback callback) {
+    public static void sendRequest(final PlaceParams params, final PlaceCallback callback) {
 
-        final String url = params.getUrl();
+        String url = params.getUrl();
+
+        if (url.equals(PlacePhotos.PHOTO)) {
+            url = BASE + url + "?";
+        } else {
+            url = BASE + url + OUTPUT;
+        }
 
         AsyncHttpResponseHandler handler = new AsyncHttpResponseHandler() {
             @Override
@@ -57,7 +68,7 @@ public class PlacesClient {
      * @param asyncResponse
      * @param callback
      */
-    private static void parseResponse(String asyncResponse, final PlacesCallback callback) {
+    private static void parseResponse(String asyncResponse, final PlaceCallback callback) {
         Log.d(TAG, asyncResponse);
 
         Response response = null;

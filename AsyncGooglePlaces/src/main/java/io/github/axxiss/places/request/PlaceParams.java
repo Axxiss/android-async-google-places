@@ -1,11 +1,11 @@
-package io.github.axxiss.places.api;
+package io.github.axxiss.places.request;
 
 import com.loopj.android.http.RequestParams;
 
 import io.github.axxiss.places.PlacesSettings;
-import io.github.axxiss.places.api.enums.Params;
-import io.github.axxiss.places.api.enums.PlaceType;
-import io.github.axxiss.places.api.enums.RankBy;
+import io.github.axxiss.places.enums.Params;
+import io.github.axxiss.places.enums.PlaceType;
+import io.github.axxiss.places.enums.RankBy;
 
 /**
  * @author Axxiss
@@ -84,6 +84,16 @@ public class PlaceParams extends RequestParams {
 
     public PlaceParams setKeyword(String keyword) {
         put(Params.KEYWORD.getValue(), keyword);
+        return this;
+    }
+
+    public PlaceParams setReference(String reference) {
+        put(Params.REFERENCE.getValue(), reference);
+        return this;
+    }
+
+    public PlaceParams setPhotoReference(String photoReference) {
+        put(Params.PHOTO_REFERENCE.getValue(), photoReference);
         return this;
     }
 }

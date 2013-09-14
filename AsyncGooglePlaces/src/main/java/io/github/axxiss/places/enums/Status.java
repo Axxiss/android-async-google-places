@@ -1,8 +1,8 @@
-package io.github.axxiss.places.api.enums;
+package io.github.axxiss.places.enums;
 
 /**
- * The "status" field within the search response object contains the status of the request,
- * and may contain debugging information to help you track down why the request failed.
+ * The "status" field within the search response object contains the status of the request, and may
+ * contain debugging information to help you track down why the request failed.
  * <p/>
  * The "status" field may contain the values defined in this class.
  *

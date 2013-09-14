@@ -1,4 +1,4 @@
-package io.github.axxiss.places.api;
+package io.github.axxiss.places.request;
 
 /**
  * The Google Places API allows you to query for place information on a variety of categories, such
@@ -16,19 +16,17 @@ package io.github.axxiss.places.api;
 public class PlaceSearch {
     public static final int FLAG_RANK_BY_DISTANCE = -1;
     private static final String TAG = "PlaceSearch";
-    private static final String BASE = "https://maps.googleapis.com/maps/api/place/";
-    private static final String OUTPUT = "/json?";
-    private static final String NEARBY = BASE + "nearbysearch" + OUTPUT;
-    private static final String TEXT = BASE + "textsearch" + OUTPUT;
-    private static final String RADAR = BASE + "radarsearch" + OUTPUT;
-    private static final String AUTO = BASE + "autocomplete" + OUTPUT;
-    private static final String QUERY = BASE + "queryautocomplete" + OUTPUT;
-    private static final String DETAILS = BASE + "details" + OUTPUT;
-    private static final String PHOTO = BASE + "photo?";
+
+    private static final String NEARBY = "nearbysearch";
+    private static final String TEXT = "textsearch";
+    private static final String RADAR = "radarsearch";
+    private static final String AUTO = "autocomplete";
+    private static final String QUERY = "queryautocomplete";
+
 
     /**
-     * Send a localized search request. The {@link Response} will contain an array of {@link
-     * io.github.axxiss .AsyncGooglePlaces.model.Place} as result.
+     * Send a localized search request. The {@link io.github.axxiss.places.Response} will contain an
+     * array of {@link io.github.axxiss .AsyncGooglePlaces.model.Place} as result.
      *
      * @param query The query
      */

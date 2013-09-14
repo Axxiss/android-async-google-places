@@ -3,6 +3,8 @@ package io.github.axxiss.places.api;
 import org.junit.Assert;
 import org.junit.Test;
 
+import io.github.axxiss.places.request.PlaceParams;
+
 
 /**
  * @author Alexis Mas <alexis @ holla.com>

@@ -1,4 +1,4 @@
-package io.github.axxiss.places.api.enums;
+package io.github.axxiss.places.enums;
 
 /**
  * @author Axxiss

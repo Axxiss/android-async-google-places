@@ -48,8 +48,8 @@ public class Place {
 
     /**
      * Place's phone number in international format. International format includes the country code,
-     * and is prefixed with the plus (+) sign. For example, the formatted_phone_number for
-     * Google's Sydney, Australia office is +61 2 9374 4000.
+     * and is prefixed with the plus (+) sign. For example, the formatted_phone_number for Google's
+     * Sydney, Australia office is +61 2 9374 4000.
      *
      * @return
      */
@@ -59,9 +59,9 @@ public class Place {
 
     /**
      * Returns the number of minutes this Place’s current timezone is offset from UTC. For example,
-     * for Places in Sydney, Australia during daylight saving time this would be 660 (+11 hours
-     * from UTC), and for Places in California outside of daylight saving time this would be -480
-     * (-8 hours from UTC).
+     * for Places in Sydney, Australia during daylight saving time this would be 660 (+11 hours from
+     * UTC), and for Places in California outside of daylight saving time this would be -480 (-8
+     * hours from UTC).
      *
      * @return
      */
@@ -71,8 +71,8 @@ public class Place {
 
     /**
      * Returns a feature name of a nearby location. Often this feature refers to a street or
-     * neighborhood within the given results. The vicinity property is only returned for a
-     * Nearby Search.
+     * neighborhood within the given results. The vicinity property is only returned for a Nearby
+     * Search.
      *
      * @return the vicinity.
      */
@@ -125,8 +125,8 @@ public class Place {
 
     /**
      * Returns a string containing the human-readable address of this place. Often this address is
-     * equivalent to the "postal address". The formatted_address property is only returned for
-     * a Text Search.
+     * equivalent to the "postal address". The formatted_address property is only returned for a
+     * Text Search.
      *
      * @return
      */
@@ -135,8 +135,8 @@ public class Place {
     }
 
     /**
-     * Returns the URL of a recommended icon which may be displayed to the user when indicating
-     * this result.
+     * Returns the URL of a recommended icon which may be displayed to the user when indicating this
+     * result.
      *
      * @return the url.
      */
@@ -157,7 +157,8 @@ public class Place {
     }
 
     /**
-     * Returns the human-readable name. For establishment results, this is usually the business name.
+     * Returns the human-readable name. For establishment results, this is usually the business
+     * name.
      *
      * @return the name.
      */
@@ -177,8 +178,8 @@ public class Place {
     /**
      * Returns a unique token that you can use to retrieve additional information about this place
      * in a Place Details request. You can store this token and use it at any time in future to
-     * refresh cached data about this Place, but the same token is not guaranteed to be returned
-     * for any given Place across different searches.
+     * refresh cached data about this Place, but the same token is not guaranteed to be returned for
+     * any given Place across different searches.
      *
      * @return the reference token.
      */
@@ -190,7 +191,7 @@ public class Place {
      * Returns an array of feature types describing the given result.
      *
      * @return
-     * @see io.github.axxiss.places.api.enums.PlaceType
+     * @see io.github.axxiss.places.enums.PlaceType
      */
     public String[] getTypes() {
         return types;

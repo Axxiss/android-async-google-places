@@ -11,11 +11,10 @@ buildscript {
         classpath 'com.android.tools.build:gradle:0.5.+'
     }
 }
-apply plugin: 'android'
+apply plugin: 'android-library'
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
 apply plugin: 'signing'
-apply plugin: 'android-test'
 
 //This must be on gradle.properties
 sonatypeUser = 'user'

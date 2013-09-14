@@ -1,4 +1,4 @@
-package io.github.axxiss.places.api;
+package io.github.axxiss.places;
 
 import io.github.axxiss.places.model.Place;
 

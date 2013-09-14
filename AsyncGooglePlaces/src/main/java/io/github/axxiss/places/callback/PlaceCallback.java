@@ -1,11 +1,11 @@
-package io.github.axxiss.places;
+package io.github.axxiss.places.callback;
 
-import io.github.axxiss.places.api.Response;
+import io.github.axxiss.places.Response;
 
 /**
  * @author Axxiss
  */
-public abstract class PlacesCallback {
+public abstract class PlaceCallback {
 
     /**
      * Called when a successful response is received. Successful means that all the parameter were

@@ -1,4 +1,4 @@
-package io.github.axxiss.places.api.enums;
+package io.github.axxiss.places.enums;
 
 /**
  * Created by alexis on 9/14/13.

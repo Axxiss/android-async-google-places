@@ -1,4 +1,4 @@
-package io.github.axxiss.places.api.enums;
+package io.github.axxiss.places.enums;
 
 /**
  * Available request's params.
@@ -23,7 +23,8 @@ public enum Params {
     ZAGAT_SELECTED("zagatselected"),
     PAGE_TOKEN("pagetoken"),
     LANGUAGE("language"),
-    PAGE("pagetoken");
+    PAGE("pagetoken"),
+    EXTENSIONS("extensions"), PHOTO_REFERENCE("photoreference");
 
     private String mValue;
 
