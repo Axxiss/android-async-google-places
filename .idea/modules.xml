@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/async-google-places.iml" filepath="$PROJECT_DIR$/async-google-places.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AsyncGooglePlaces/AsyncGooglePlaces.iml" filepath="$PROJECT_DIR$/AsyncGooglePlaces/AsyncGooglePlaces.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AsyncGooglePlacesProject.iml" filepath="$PROJECT_DIR$/AsyncGooglePlacesProject.iml" />
     </modules>
   </component>
 </project>

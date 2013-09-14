@@ -1,0 +1,155 @@
+// Project Info
+group = 'io.github.axxiss'
+version = '0.2.0-SNAPSHOT'
+description = 'Android lib for accessing Google Places API asynchronously'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.5.+'
+    }
+}
+apply plugin: 'android'
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+apply plugin: 'signing'
+
+//This must be on gradle.properties
+sonatypeUser = 'user'
+sonatypePass = 'pass'
+
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+android {
+    compileSdkVersion 17
+    buildToolsVersion "17.0.0"
+
+    defaultConfig {
+        minSdkVersion 7
+        targetSdkVersion 18
+    }
+}
+
+dependencies {
+    compile 'com.google.code.gson:gson:2.2.4'
+    compile 'com.loopj.android:android-async-http:1.4.3'
+
+    instrumentTestCompile 'junit:junit:4.+'
+//    testCompile 'org.robolectric:robolectric:2.1.+:jar-with-dependencies'
+}
+
+
+def isSnapshot = version.contains("SNAPSHOT")
+
+def mavenCentralRepo = isSnapshot ?
+        'https://oss.sonatype.org/content/repositories/snapshots/' :
+        'https://oss.sonatype.org/service/local/staging/deploy/maven2';
+
+/**
+ * Artifacts
+ */
+//
+//task javadocJar(type: Jar, dependsOn: javadoc) {
+//    classifier = 'javadoc'
+//    from javadoc.destinationDir
+//}
+//
+//task sourceJar(type: Jar) {
+//    classifier = 'sources'
+//    from sourceSets.main.allSource
+//}
+//
+//
+//artifacts {
+//    archives jar
+//    archives sourceJar
+//    archives javadocJar
+//}
+//
+//
+//signing {
+//    sign configurations.archives
+//}
+//
+//uploadArchives {
+//    repositories.mavenDeployer {
+//        configuration = configurations.archives
+//
+////        beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+//
+//        repository(url: mavenCentralRepo) {
+//            authentication(userName: sonatypeUser, password: sonatypePass)
+//        }
+//
+//
+//        pom.project {
+//            name 'Android Async Google Places API'
+//            description 'Android lib for accessing Google Places API asynchronously'
+//            url 'https://github.com/Axxiss/android-async-google-places'
+//            inceptionYear '2013'
+//
+//            scm {
+//                url 'https://github.com/Axxiss/android-async-google-places'
+//                connection 'scm:git:git://github.com/Axxiss/android-async-google-places.git'
+//                developerConnection 'scm:git:ssh:git@github.com:Axxiss/android-async-google-places.git'
+//            }
+//
+//            licenses {
+//                license {
+//                    name 'The Apache Software License, Version 2.0'
+//                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+//                    distribution 'repo'
+//                }
+//            }
+//
+//            developers {
+//                developer {
+//                    id 'Axxiss'
+//                    name 'Alexis Mas'
+//                    email 'alexismas@about.me'
+//                }
+//            }
+//        }
+//    }
+//}
+//
+////for local publishing
+//publishing {
+//    publications {
+//
+//        jar(MavenPublication) {
+//            from components.java
+//            pom.projectIdentity.artifactId = 'async-google-places'
+//
+//            pom.withXml {
+//                asNode().children().last() + {
+//                    resolveStrategy = Closure.DELEGATE_FIRST
+//                    name 'Android Async Google Places API'
+//                    description 'Android lib for accessing Google Places API asynchronously'
+//                    url 'https://github.com/Axxiss/android-async-google-places'
+//                    inceptionYear '2013'
+//                }
+//            }
+//
+//            artifact sourceJar
+//            artifact javadocJar
+//        }
+//    }
+//
+//    repositories {
+//        maven {
+//            credentials {
+//                username sonatypeUser
+//                password sonatypePass
+//            }
+//            url mavenCentralRepo
+//        }
+//    }
+//}
+
