@@ -1,9 +1,12 @@
 package io.github.axxiss.places.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * @author Axxiss
  */
-public class Place {
+public class Place implements Parcelable {
     public Event[] events;
 
     private String formatted_address = null;
@@ -215,4 +218,56 @@ public class Place {
             return location;
         }
     }
+
+    protected Place(Parcel in) {
+        formatted_address = in.readString();
+        icon = in.readString();
+        id = in.readString();
+        name = in.readString();
+        rating = in.readDouble();
+        reference = in.readString();
+        geometry = (Geometry) in.readValue(null);
+        vicinity = in.readString();
+        opening_hours = (OpeningHours) in.readValue(null);
+        price_level = in.readInt();
+        formatted_phone_number = in.readString();
+        international_phone_number = in.readString();
+        utc_offset = in.readInt();
+        in.readStringArray(types);
+        events = (Event[]) in.readParcelableArray(Event.class.getClassLoader());
+        photos = (Photo[]) in.readParcelableArray(Photo.class.getClassLoader());
+    }
+
+    public int describeContents() {
+        return 0;
+    }
+
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(formatted_address);
+        dest.writeString(icon);
+        dest.writeString(id);
+        dest.writeString(name);
+        dest.writeDouble(rating);
+        dest.writeString(reference);
+        dest.writeValue(geometry);
+        dest.writeString(vicinity);
+        dest.writeValue(opening_hours);
+        dest.writeInt(price_level);
+        dest.writeString(formatted_phone_number);
+        dest.writeString(international_phone_number);
+        dest.writeInt(utc_offset);
+        dest.writeStringArray(types);
+        dest.writeParcelableArray(events, 0);
+        dest.writeParcelableArray(photos, 0);
+    }
+
+    public static final Parcelable.Creator<Place> CREATOR = new Parcelable.Creator<Place>() {
+        public Place createFromParcel(Parcel in) {
+            return new Place(in);
+        }
+
+        public Place[] newArray(int size) {
+            return new Place[size];
+        }
+    };
 }

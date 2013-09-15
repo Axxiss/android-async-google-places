@@ -1,11 +1,14 @@
 package io.github.axxiss.places.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Provides a rating of a single attribute of a establishment.
  *
  * @author Axxiss
  */
-public class AspectRating {
+public class AspectRating implements Parcelable {
     private String type;
 
     private int rating;
@@ -27,4 +30,32 @@ public class AspectRating {
     public int getRating() {
         return rating;
     }
+
+    public AspectRating() {
+
+    }
+
+    protected AspectRating(Parcel in) {
+        type = in.readString();
+        rating = in.readInt();
+    }
+
+    public int describeContents() {
+        return 0;
+    }
+
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(type);
+        dest.writeInt(rating);
+    }
+
+    public static final Parcelable.Creator<AspectRating> CREATOR = new Parcelable.Creator<AspectRating>() {
+        public AspectRating createFromParcel(Parcel in) {
+            return new AspectRating(in);
+        }
+
+        public AspectRating[] newArray(int size) {
+            return new AspectRating[size];
+        }
+    };
 }

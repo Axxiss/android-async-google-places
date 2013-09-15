@@ -1,9 +1,12 @@
 package io.github.axxiss.places.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * @author Axxiss
  */
-public class Review {
+public class Review implements Parcelable {
     private AspectRating[] aspects;
     private String author_name;
     private String author_url;
@@ -11,9 +14,9 @@ public class Review {
     private int time;
 
     /**
-     * Returns a collection of AspectRating objects, each of which provides a rating of a
-     * single attribute of the establishment. The first object in the collection is considered the
-     * primary aspect.
+     * Returns a collection of AspectRating objects, each of which provides a rating of a single
+     * attribute of the establishment. The first object in the collection is considered the primary
+     * aspect.
      *
      * @return
      */
@@ -22,8 +25,8 @@ public class Review {
     }
 
     /**
-     * The name of the user who submitted the review. Anonymous reviews are attributed to
-     * "A Google user".
+     * The name of the user who submitted the review. Anonymous reviews are attributed to "A Google
+     * user".
      *
      * @return
      */
@@ -59,4 +62,34 @@ public class Review {
     public int getTime() {
         return time;
     }
+
+    protected Review(Parcel in) {
+        author_name = in.readString();
+        author_url = in.readString();
+        text = in.readString();
+        time = in.readInt();
+        aspects = (AspectRating[]) in.readParcelableArray(AspectRating.class.getClassLoader());
+    }
+
+    public int describeContents() {
+        return 0;
+    }
+
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(author_name);
+        dest.writeString(author_url);
+        dest.writeString(text);
+        dest.writeInt(time);
+        dest.writeParcelableArray(aspects, 0);
+    }
+
+    public static final Parcelable.Creator<Review> CREATOR = new Parcelable.Creator<Review>() {
+        public Review createFromParcel(Parcel in) {
+            return new Review(in);
+        }
+
+        public Review[] newArray(int size) {
+            return new Review[size];
+        }
+    };
 }

@@ -1,13 +1,16 @@
 package io.github.axxiss.places.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * The Google Places API includes support for events, which are defined as any type of public or
- * private gathering, performance, or promotion that occurs at a location listed in the
- * Places service.
+ * private gathering, performance, or promotion that occurs at a location listed in the Places
+ * service.
  *
  * @author Axxiss
  */
-public class Event {
+public class Event implements Parcelable {
 
     private String event_id;
 
@@ -67,4 +70,39 @@ public class Event {
     public long getStartTime() {
         return start_time;
     }
+
+    public Event() {
+    }
+
+    ;
+
+    protected Event(Parcel in) {
+        event_id = in.readString();
+        duration = in.readInt();
+        summary = in.readString();
+        url = in.readString();
+        start_time = in.readLong();
+    }
+
+    public int describeContents() {
+        return 0;
+    }
+
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(event_id);
+        dest.writeInt(duration);
+        dest.writeString(summary);
+        dest.writeString(url);
+        dest.writeLong(start_time);
+    }
+
+    public static final Parcelable.Creator<Event> CREATOR = new Parcelable.Creator<Event>() {
+        public Event createFromParcel(Parcel in) {
+            return new Event(in);
+        }
+
+        public Event[] newArray(int size) {
+            return new Event[size];
+        }
+    };
 }

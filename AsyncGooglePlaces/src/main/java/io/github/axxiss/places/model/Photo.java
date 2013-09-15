@@ -1,5 +1,8 @@
 package io.github.axxiss.places.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * The Photo service gives you access to the millions of photos stored in the Places and Google+
  * Local database. When you search for Places using either a Place Search or Place Details request,
@@ -8,7 +11,7 @@ package io.github.axxiss.places.model;
  *
  * @author Axxiss
  */
-public class Photo {
+public class Photo implements Parcelable {
 
     private String photo_reference;
 
@@ -53,4 +56,32 @@ public class Photo {
     public String[] getHtml_attributions() {
         return html_attributions;
     }
+
+    protected Photo(Parcel in) {
+        photo_reference = in.readString();
+        width = in.readInt();
+        height = in.readInt();
+        in.readStringArray(html_attributions);
+    }
+
+    public int describeContents() {
+        return 0;
+    }
+
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(photo_reference);
+        dest.writeInt(width);
+        dest.writeInt(height);
+        dest.writeStringArray(html_attributions);
+    }
+
+    public static final Parcelable.Creator<Photo> CREATOR = new Parcelable.Creator<Photo>() {
+        public Photo createFromParcel(Parcel in) {
+            return new Photo(in);
+        }
+
+        public Photo[] newArray(int size) {
+            return new Photo[size];
+        }
+    };
 }

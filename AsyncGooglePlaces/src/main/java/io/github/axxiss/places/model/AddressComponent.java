@@ -1,13 +1,16 @@
 package io.github.axxiss.places.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
- * Address components used to compose a given address. For example, the address "111 8th Avenue,
- * New York, NY" contains separate address components for "111" (the street number, "8th Avenue"
- * (the route), "New York" (the city) and "NY" (the US state).
+ * Address components used to compose a given address. For example, the address "111 8th Avenue, New
+ * York, NY" contains separate address components for "111" (the street number, "8th Avenue" (the
+ * route), "New York" (the city) and "NY" (the US state).
  *
  * @author Axxiss
  */
-public class AddressComponent {
+public class AddressComponent implements Parcelable {
 
     private String[] types;
     private String long_name;
@@ -41,4 +44,34 @@ public class AddressComponent {
     public String getShortName() {
         return short_name;
     }
+
+    public AddressComponent() {
+
+    }
+
+    protected AddressComponent(Parcel in) {
+        in.readStringArray(types);
+        long_name = in.readString();
+        short_name = in.readString();
+    }
+
+    public int describeContents() {
+        return 0;
+    }
+
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeStringArray(types);
+        dest.writeString(long_name);
+        dest.writeString(short_name);
+    }
+
+    public static final Parcelable.Creator<AddressComponent> CREATOR = new Parcelable.Creator<AddressComponent>() {
+        public AddressComponent createFromParcel(Parcel in) {
+            return new AddressComponent(in);
+        }
+
+        public AddressComponent[] newArray(int size) {
+            return new AddressComponent[size];
+        }
+    };
 }
