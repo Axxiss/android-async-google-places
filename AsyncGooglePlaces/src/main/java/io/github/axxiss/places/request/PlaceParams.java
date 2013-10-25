@@ -2,6 +2,7 @@ package io.github.axxiss.places.request;
 
 import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 
 import io.github.axxiss.places.PlacesSettings;
 import io.github.axxiss.places.enums.Params;
@@ -45,6 +46,10 @@ public class PlaceParams {
 
     }
 
+    public static String buildLocation(double lat, double lng) {
+        return String.format("%s,%s", String.valueOf(lat), String.valueOf(lng));
+    }
+
 
     public void put(Params key, List<PlaceType> value) {
 //FIXME
@@ -77,6 +82,10 @@ public class PlaceParams {
 
         params.put(Params.Types, types);
         return this;
+    }
+
+    protected Map<Params, String> getParams() {
+        return params;
     }
 
 }

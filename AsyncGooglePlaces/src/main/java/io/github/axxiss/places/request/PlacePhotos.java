@@ -1,5 +1,7 @@
 package io.github.axxiss.places.request;
 
+import io.github.axxiss.places.enums.Params;
+
 /**
  * The Places Photo service is a read-only API that allows you to easily add high quality
  * photographic content to your application. The Photo service gives you access to the millions of
@@ -12,6 +14,8 @@ package io.github.axxiss.places.request;
  */
 public class PlacePhotos {
     protected static final String PHOTO = "photo";
+
+    PlaceParams params = new PlaceParams();
 
     /**
      * All requests to the Place Photo service must include a photoreference, returned in the
@@ -30,10 +34,9 @@ public class PlacePhotos {
      * @param reference place's reference
      * @return
      */
-    public static PlaceParams photoRequest(final String reference) {
-        PlaceParams params = new PlaceParams();
-        params.setUrl(PHOTO);
-        params.setPhotoReference(reference);
-        return params;
+    public PlacePhotos(final String reference, final int maxHeight, final int maxWidth) {
+        params.put(Params.PĥotoReference, reference);
+        params.put(Params.MaxHeight, maxHeight);
+        params.put(Params.MaxWidth, maxWidth);
     }
 }

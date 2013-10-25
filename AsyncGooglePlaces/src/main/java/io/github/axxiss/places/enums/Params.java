@@ -22,9 +22,12 @@ public enum Params {
     OpenNow,
     ZagatSelected,
     PageToken,
+    PĥotoReference,
     Language,
     Page,
-    Extensions;
+    Extensions,
+    MaxHeight,
+    MaxWidth;
 
     public String getValue() {
         return this.name().toLowerCase();

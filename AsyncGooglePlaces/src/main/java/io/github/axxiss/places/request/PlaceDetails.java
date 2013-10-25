@@ -1,5 +1,7 @@
 package io.github.axxiss.places.request;
 
+import io.github.axxiss.places.enums.Params;
+
 /**
  * Once you have a reference from a Place Search, you can request more details about a particular
  * establishment or point of interest by initiating a Place Details request. A Place Details request
@@ -12,17 +14,26 @@ public class PlaceDetails {
 
     private static final String DETAILS = "details";
 
+    PlaceParams params = new PlaceParams();
+
     /**
      * Build a Places detail request.
      *
      * @param reference place's reference
      * @return
      */
-    public static PlaceParams detailRequest(final String reference) {
-        PlaceParams params = new PlaceParams();
-        params.setUrl(DETAILS);
-        params.setReference(reference);
-        return params;
+    public PlaceDetails(final String reference) {
+        params.put(Params.Reference, reference);
+    }
+
+    public PlaceDetails setExtensions(String extensions) {
+        params.put(Params.Extensions, extensions);
+        return this;
+    }
+
+    public PlaceDetails setLanguage(String language) {
+        params.put(Params.Language, language);
+        return this;
     }
 
 }

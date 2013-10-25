@@ -5,7 +5,7 @@ import io.github.axxiss.places.Response;
 /**
  * @author Axxiss
  */
-public abstract class PlaceCallback {
+public abstract class PlacesCallback {
 
     /**
      * Called when a successful response is received. Successful means that all the parameter were

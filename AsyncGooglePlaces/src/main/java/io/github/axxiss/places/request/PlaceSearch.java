@@ -14,49 +14,19 @@ package io.github.axxiss.places.request;
  * @author Axxiss
  */
 public class PlaceSearch {
-    public static final int FLAG_RANK_BY_DISTANCE = -1;
-    private static final String TAG = "PlaceSearch";
-
-    private static final String NEARBY = "nearbysearch";
-    private static final String TEXT = "textsearch";
-    private static final String RADAR = "radarsearch";
-    private static final String AUTO = "autocomplete";
-    private static final String QUERY = "queryautocomplete";
-
-    /**
-     * A Nearby Search lets you search for Places within a specified area. You can refine your
-     * search request by supplying keywords or specifying the type of Place you are searching for.
-     *
-     * @param lat
-     * @param lng
-     * @param radius
-     * @return request params.
-     */
-    public static PlaceParams nearbySearch(final double lat, final double lng, int radius) {
-        PlaceParams params = new PlaceParams();
-        params.setUrl(NEARBY);
-        params.setLocation(lat, lng).setRadius(radius);
-        return params;
+    public static TextSearch textSearch(final String query, final double lat, final double lng, int radius) {
+        return new TextSearch(query, lat, lng, radius);
     }
 
-    /**
-     * The Google Places API Radar Search Service allows you to search for up to 200 Places at once,
-     * but with less detail than is typically returned from a Text Search or Nearby Search request.
-     * With Radar Search, you can create applications that help users identify specific areas of
-     * interest within a geographic area. The search response will include up to 200 Places,
-     * identified only by their geographic coordinates and Place reference. You can send a Place
-     * Details request for more information about any of the Places in the response.
-     *
-     * @param lat    The latitude around which to retrieve Place information.
-     * @param lng    The longitude around which to retrieve Place information.
-     * @param radius Defines the distance (in meters) within which to return Place results. The
-     *               maximum allowed radius is 50 000 meters.
-     * @return
-     */
-    public static PlaceParams radarSearch(final double lat, final double lng, int radius) {
-        PlaceParams params = new PlaceParams();
-        params.setUrl(RADAR);
-        params.setRadius(radius);
-        return params;
+    public static RadarSearch radarSearch(final double lat, final double lng, int radius) {
+        return new RadarSearch(lat, lng, radius);
+    }
+
+    public static NearbySearch nearbySearch(final double lat, final double lng, int radius) {
+        return new NearbySearch(lat, lng, radius);
+    }
+
+    public static NearbySearch nearbySearch(final double lat, final double lng) {
+        return new NearbySearch(lat, lng);
     }
 }

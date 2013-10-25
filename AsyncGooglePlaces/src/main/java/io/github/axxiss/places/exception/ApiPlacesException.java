@@ -1,4 +1,4 @@
-package io.github.axxiss.places;
+package io.github.axxiss.places.exception;
 
 /**
  * @author Axxiss

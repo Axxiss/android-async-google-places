@@ -7,13 +7,18 @@ import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 import java.lang.reflect.Type;
+import java.util.Map;
+import java.util.Set;
 
-import io.github.axxiss.places.ApiPlacesException;
 import io.github.axxiss.places.Response;
-import io.github.axxiss.places.callback.PlaceCallback;
+import io.github.axxiss.places.callback.PlacesCallback;
+import io.github.axxiss.places.enums.Params;
+import io.github.axxiss.places.enums.Request;
 import io.github.axxiss.places.enums.Status;
+import io.github.axxiss.places.exception.ApiPlacesException;
 
 /**
  * Here is where the request to the server is setted up and launched.
@@ -35,14 +40,14 @@ public class PlacesClient {
      * @param params   request's params
      * @param callback
      */
-    public static void sendRequest(final PlaceParams params, final PlaceCallback callback) {
+    public static void sendRequest(final Request request, final PlaceParams params, final PlacesCallback callback) {
 
-        String url = params.getUrl();
+        String url = BASE + request.getValue();
 
-        if (url.equals(PlacePhotos.PHOTO)) {
-            url = BASE + url + "?";
+        if (request == Request.Photo) {
+            url += "?";
         } else {
-            url = BASE + url + OUTPUT;
+            url += OUTPUT;
         }
 
         AsyncHttpResponseHandler handler = new AsyncHttpResponseHandler() {
@@ -59,7 +64,17 @@ public class PlacesClient {
         };
         Log.d(TAG, url);
         Log.d(TAG, params.toString());
-        mHttpClient.get(url, params, handler);
+
+
+        RequestParams parameters = new RequestParams();
+
+        Set<Map.Entry<Params, String>> entries = params.getParams().entrySet();
+
+        for (Map.Entry<Params, String> entry : entries) {
+            parameters.put(entry.getKey().getValue(), entry.getValue());
+        }
+
+        mHttpClient.get(url, parameters, handler);
     }
 
     /**
@@ -68,7 +83,7 @@ public class PlacesClient {
      * @param asyncResponse
      * @param callback
      */
-    private static void parseResponse(String asyncResponse, final PlaceCallback callback) {
+    private static void parseResponse(String asyncResponse, final PlacesCallback callback) {
         Log.d(TAG, asyncResponse);
 
         Response response = null;
