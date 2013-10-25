@@ -1,31 +1,60 @@
 package io.github.axxiss.places.request;
 
-import com.loopj.android.http.RequestParams;
+import java.util.EnumMap;
+import java.util.List;
 
 import io.github.axxiss.places.PlacesSettings;
 import io.github.axxiss.places.enums.Params;
 import io.github.axxiss.places.enums.PlaceType;
-import io.github.axxiss.places.enums.RankBy;
 
 /**
  * @author Axxiss
  */
-public class PlaceParams extends RequestParams {
+public class PlaceParams {
     private static final String TAG = "PlaceParams";
 
     private String mUrl;
 
+
+    private EnumMap<Params, String> params = new EnumMap<Params, String>(Params.class);
+
+
     public PlaceParams() {
-        put(Params.KEY.getValue(), PlacesSettings.getInstance().getApiKey());
-        put(Params.SENSOR.getValue(), "true");
+        params.put(Params.Key, PlacesSettings.getInstance().getApiKey());
+        params.put(Params.Sensor, "true");
     }
 
-    protected void put(String key, boolean value) {
-        put(key, String.valueOf(value));
+
+    public void put(Params key, String value) {
+        params.put(key, value);
     }
 
-    protected void put(String key, int value) {
-        put(key, String.valueOf(value));
+    public void put(Params key, boolean value) {
+        params.put(key, String.valueOf(value));
+    }
+
+    public void put(Params key, int value) {
+        params.put(key, String.valueOf(value));
+    }
+
+    public void put(Params key, double value) {
+        params.put(key, String.valueOf(value));
+    }
+
+    public void put(Params key) {
+
+    }
+
+
+    public void put(Params key, List<PlaceType> value) {
+//FIXME
+//        String types = "";
+//
+//        for(PlaceType t: value){
+//
+//        }
+//
+//        params.put(key, String.valueOf(value));
     }
 
     protected String getUrl() {
@@ -36,64 +65,18 @@ public class PlaceParams extends RequestParams {
         mUrl = url;
     }
 
-    public PlaceParams setRankBy(RankBy rankBy) {
-        put(Params.RANK_BY.getValue(), rankBy.getvalue());
-        return this;
-    }
-
-    public PlaceParams setRadius(int radius) {
-        if (radius > 0) {
-            put(Params.RADIUS.getValue(), radius);
-        } else {
-            setRankBy(RankBy.DISTANCE);
-        }
-        return this;
-    }
-
-    public PlaceParams setLocation(final double lat, final double lng) {
-        String location = String.format("%s,%s", String.valueOf(lat), String.valueOf(lng));
-        put(Params.LOCATION.getValue(), location);
-        return this;
-    }
-
-    public PlaceParams setQuery(String query) {
-        if (query != null) {
-            put(Params.QUERY.getValue(), query);
-        }
-        return this;
-    }
 
     public PlaceParams setTypes(PlaceType[] places) {
         final String divider = "|";
         String types = "";
         for (PlaceType place : places) {
-            types = place.getValue() + divider;
+            types = place + divider;
         }
 
         types.substring(0, types.length() - 1);
 
-        put(Params.TYPES.getValue(), types);
+        params.put(Params.Types, types);
         return this;
     }
 
-    public PlaceParams setLanguage(String langCode) {
-        put(Params.LANGUAGE.getValue(), langCode);
-
-        return this;
-    }
-
-    public PlaceParams setKeyword(String keyword) {
-        put(Params.KEYWORD.getValue(), keyword);
-        return this;
-    }
-
-    public PlaceParams setReference(String reference) {
-        put(Params.REFERENCE.getValue(), reference);
-        return this;
-    }
-
-    public PlaceParams setPhotoReference(String photoReference) {
-        put(Params.PHOTO_REFERENCE.getValue(), photoReference);
-        return this;
-    }
 }

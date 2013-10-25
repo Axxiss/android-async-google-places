@@ -24,6 +24,7 @@ IMPORTANT! Currently Google Places API doesn't support Android Key, so you must 
 
     PlacesSettings.getInstance().setApiKey("yourApiKey");
 
+
 2. Build the request
 
 Replaces the parameter with your needed values
@@ -34,7 +35,9 @@ Replaces the parameter with your needed values
     //add optional params
     params.setKeyword("");
 
+
 3. Send the request
+
 
     PlacesCallback callback = new new PlacesCallback() {
         @Override

@@ -23,20 +23,6 @@ public class PlaceSearch {
     private static final String AUTO = "autocomplete";
     private static final String QUERY = "queryautocomplete";
 
-
-    /**
-     * Send a localized search request. The {@link io.github.axxiss.places.Response} will contain an
-     * array of {@link io.github.axxiss .AsyncGooglePlaces.model.Place} as result.
-     *
-     * @param query The query
-     */
-    public static PlaceParams textSearch(final String query, final double lat, final double lng, int radius) {
-        PlaceParams params = new PlaceParams();
-        params.setUrl(TEXT);
-        params.setLocation(lat, lng).setRadius(radius).setQuery(query);
-        return params;
-    }
-
     /**
      * A Nearby Search lets you search for Places within a specified area. You can refine your
      * search request by supplying keywords or specifying the type of Place you are searching for.

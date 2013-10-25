@@ -7,33 +7,27 @@ package io.github.axxiss.places.enums;
  */
 public enum Params {
 
-    KEY("key"),
-    KEYWORD("keyword"),
-    REFERENCE("reference"),
-    SENSOR("sensor"),
-    QUERY("query"),
-    LOCATION("location"),
-    RADIUS("radius"),
-    TYPES("types"),
-    RANK_BY("rankby"),
-    NAME("name"),
-    MIN_PRICE("minprice"),
-    MAX_PRICE("maxprice"),
-    OPEN_NOW("opennow"),
-    ZAGAT_SELECTED("zagatselected"),
-    PAGE_TOKEN("pagetoken"),
-    LANGUAGE("language"),
-    PAGE("pagetoken"),
-    EXTENSIONS("extensions"), PHOTO_REFERENCE("photoreference");
-
-    private String mValue;
-
-    Params(String value) {
-        mValue = value;
-    }
+    Key,
+    Keyword,
+    Reference,
+    Sensor,
+    Query,
+    Location,
+    Radius,
+    Types,
+    RankBy,
+    Name,
+    MinPrice,
+    MaxPrice,
+    OpenNow,
+    ZagatSelected,
+    PageToken,
+    Language,
+    Page,
+    Extensions;
 
     public String getValue() {
-        return mValue;
+        return this.name().toLowerCase();
     }
 
 }
