@@ -65,14 +65,15 @@ public class PlaceParams extends RequestParams {
 
     public PlaceParams setTypes(PlaceType[] places) {
         final String divider = "|";
-        String types = "";
+
+        StringBuilder types = new StringBuilder();
+        
         for (PlaceType place : places) {
-            types = place.getValue() + divider;
+            types.append(place.getValue());
+            types.append(divider);
         }
-
-        types.substring(0, types.length() - 1);
-
-        put(Params.TYPES.getValue(), types);
+        
+        put(Params.TYPES.getValue(), types.substring(0, types.length() - 1));
         return this;
     }
 
