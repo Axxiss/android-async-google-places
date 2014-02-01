@@ -201,7 +201,7 @@ public class Place implements Parcelable {
     }
 
     /**
-     * Returns {@link io.github.axxiss.places.model.Place.Geometry} information about the result,
+     * Returns {@link io.github.axxiss.places.model.Geometry} information about the result,
      * generally including the location (geocode) of the Place and (optionally) the viewport
      * identifying its general area of coverage.
      *
@@ -209,14 +209,6 @@ public class Place implements Parcelable {
      */
     public Geometry getGeometry() {
         return geometry;
-    }
-
-    public static class Geometry {
-        Location location;
-
-        public Location getLocation() {
-            return location;
-        }
     }
 
     protected Place(Parcel in) {

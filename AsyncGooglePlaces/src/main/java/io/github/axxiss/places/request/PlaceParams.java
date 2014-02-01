@@ -73,14 +73,13 @@ public class PlaceParams {
 
     public PlaceParams setTypes(PlaceType[] places) {
         final String divider = "|";
-        String types = "";
+        StringBuilder types = new StringBuilder();
         for (PlaceType place : places) {
-            types = place + divider;
+            types.append(place.getValue());
+            types.append(divider);
         }
 
-        types.substring(0, types.length() - 1);
-
-        params.put(Params.Types, types);
+        params.put(Params.Types, types.substring(0, types.length() - 1));
         return this;
     }
 

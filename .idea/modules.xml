@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AsyncGooglePlaces/AsyncGooglePlaces.iml" filepath="$PROJECT_DIR$/AsyncGooglePlaces/AsyncGooglePlaces.iml" />
       <module fileurl="file://$PROJECT_DIR$/AsyncGooglePlacesProject.iml" filepath="$PROJECT_DIR$/AsyncGooglePlacesProject.iml" />
+      <module fileurl="file://$PROJECT_DIR$/async-google-places.iml" filepath="$PROJECT_DIR$/async-google-places.iml" />
     </modules>
   </component>
 </project>
