@@ -1,7 +1,5 @@
 package io.github.axxiss.places.request;
 
-import io.github.axxiss.places.IPlaceClient;
-import io.github.axxiss.places.callback.PlacesCallback;
 import io.github.axxiss.places.enums.Params;
 import io.github.axxiss.places.enums.RankBy;
 import io.github.axxiss.places.enums.Request;
@@ -9,7 +7,7 @@ import io.github.axxiss.places.enums.Request;
 /**
  * Created by alexis on 25/10/13.
  */
-public class NearbySearch extends BaseSearch implements IPlaceClient {
+public class NearbySearch extends BaseSearch {
 
     protected PlaceParams params = new PlaceParams();
 
@@ -23,11 +21,13 @@ public class NearbySearch extends BaseSearch implements IPlaceClient {
      * @return request params.
      */
     public NearbySearch(final double lat, final double lng, int radius) {
+        super(Request.NearbySearch);
         params.put(Params.Location, PlaceParams.buildLocation(lat, lng));
         params.put(Params.Radius, radius);
     }
 
     public NearbySearch(final double lat, final double lng) {
+        super(Request.NearbySearch);
         params.put(Params.Location, PlaceParams.buildLocation(lat, lng));
         params.put(Params.RankBy, RankBy.DISTANCE.getvalue());
     }
@@ -60,10 +60,5 @@ public class NearbySearch extends BaseSearch implements IPlaceClient {
     public NearbySearch setRadius(int radius) {
         params.put(Params.Radius, radius);
         return this;
-    }
-
-    @Override
-    public void sendRequest(PlacesCallback callback) {
-        PlacesClient.sendRequest(Request.NearbySearch, params, callback);
     }
 }

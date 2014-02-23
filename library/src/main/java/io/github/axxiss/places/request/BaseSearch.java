@@ -2,15 +2,31 @@ package io.github.axxiss.places.request;
 
 import java.util.List;
 
+import io.github.axxiss.places.callback.PlacesCallback;
 import io.github.axxiss.places.enums.Params;
 import io.github.axxiss.places.enums.PlaceType;
+import io.github.axxiss.places.enums.Request;
 
 /**
+ * Base class for search request.
+ *
  * @author Axxiss
  */
 public abstract class BaseSearch {
 
+    /**
+     * Places request parameters.
+     */
     protected PlaceParams params = new PlaceParams();
+
+    /**
+     * The request type.
+     */
+    private Request mRequest;
+
+    protected BaseSearch(Request request) {
+        mRequest = request;
+    }
 
 
     public BaseSearch setMinPrice(double price) {
@@ -41,6 +57,10 @@ public abstract class BaseSearch {
     public BaseSearch setType(List<PlaceType> types) {
         params.put(Params.Types, types);
         return this;
+    }
+
+    public void sendRequest(final PlacesCallback callback) {
+        PlacesClient.sendRequest(mRequest, params, callback);
     }
 
 }

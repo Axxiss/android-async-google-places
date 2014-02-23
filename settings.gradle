@@ -1,1 +1,2 @@
-include ':AsyncGooglePlaces'
+include ':sample'
+include ':library'

@@ -1,16 +1,7 @@
 // Project Info
-group = 'io.github.axxiss'
-version = '0.3.0'
 description = 'Android lib for accessing Google Places API asynchronously'
 
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:0.8.+'
-    }
-}
+
 apply plugin: 'android-library'
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
@@ -20,11 +11,6 @@ apply plugin: 'signing'
 sonatypeUser = 'user'
 sonatypePass = 'pass'
 
-
-repositories {
-    mavenCentral()
-    mavenLocal()
-}
 
 android {
     compileSdkVersion 19
@@ -37,6 +23,8 @@ android {
         targetSdkVersion 19
     }
 }
+
+
 
 dependencies {
     compile 'junit:junit:4.11'
@@ -51,7 +39,6 @@ def mavenCentralRepo = isSnapshot ?
         'https://oss.sonatype.org/content/repositories/snapshots/' :
         'https://oss.sonatype.org/service/local/staging/deploy/maven2';
 
-apply plugin: 'maven'
 
 uploadArchives {
     repositories {
