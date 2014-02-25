@@ -218,13 +218,14 @@ public class Place implements Parcelable {
         name = in.readString();
         rating = in.readDouble();
         reference = in.readString();
-        geometry = (Geometry) in.readValue(null);
+        geometry = in.readParcelable(Geometry.class.getClassLoader());
         vicinity = in.readString();
-        opening_hours = (OpeningHours) in.readValue(null);
+        opening_hours = in.readParcelable(OpeningHours.class.getClassLoader());
         price_level = in.readInt();
         formatted_phone_number = in.readString();
         international_phone_number = in.readString();
         utc_offset = in.readInt();
+        types = new String[in.readInt()];
         in.readStringArray(types);
         events = (Event[]) in.readParcelableArray(Event.class.getClassLoader());
         photos = (Photo[]) in.readParcelableArray(Photo.class.getClassLoader());
@@ -235,19 +236,24 @@ public class Place implements Parcelable {
     }
 
     public void writeToParcel(Parcel dest, int flags) {
+        if (types == null) {
+            types = new String[1];
+        }
+
         dest.writeString(formatted_address);
         dest.writeString(icon);
         dest.writeString(id);
         dest.writeString(name);
         dest.writeDouble(rating);
         dest.writeString(reference);
-        dest.writeValue(geometry);
+        dest.writeParcelable(geometry, 0);
         dest.writeString(vicinity);
-        dest.writeValue(opening_hours);
+        dest.writeParcelable(opening_hours, 0);
         dest.writeInt(price_level);
         dest.writeString(formatted_phone_number);
         dest.writeString(international_phone_number);
         dest.writeInt(utc_offset);
+        dest.writeInt(types.length);
         dest.writeStringArray(types);
         dest.writeParcelableArray(events, 0);
         dest.writeParcelableArray(photos, 0);

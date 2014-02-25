@@ -29,7 +29,7 @@ public class PlaceActivity extends ListActivity {
 
         Bundle extras = getIntent().getExtras();
 
-        Place[] places = (Place[]) extras.getParcelableArray("places");
+        Place[] places = (Place[]) extras.getParcelableArray(KEY_PLACES);
 
         if (places == null) {
             Toast.makeText(this, "I have no places...", Toast.LENGTH_LONG).show();
