@@ -1,63 +1,44 @@
 package io.github.axxis.places.sample;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBarActivity;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.Toast;
 
-public class MainActivity extends ActionBarActivity {
+import io.github.axxiss.places.PlacesSettings;
+import io.github.axxiss.places.Response;
+import io.github.axxiss.places.callback.PlacesCallback;
+import io.github.axxiss.places.request.PlaceSearch;
+
+/**
+ * Created by alexis on 2/23/14.
+ */
+public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment())
-                    .commit();
-        }
+        PlacesSettings.getInstance().setApiKey("AIzaSyAqKRDhvqXCB3YUwOysjboMzTSgiOaNjOA");
+
     }
 
+    public void onSearchClicked(View source) {
+        int radius = 10000;
+        double lat = -33.8670522;
+        double lng = 151.1957362;
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+        PlaceSearch.nearbySearch(lat, lng, radius).sendRequest(new PlacesCallback() {
+            @Override
+            public void onSuccess(Response response) {
+                PlaceActivity.newInstance(MainActivity.this, response.getResults());
+            }
 
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
+            @Override
+            public void onException(Exception exception) {
+                Toast.makeText(MainActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
+            }
+        });
     }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-
-        public PlaceholderFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-            return rootView;
-        }
-    }
-
 }

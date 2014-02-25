@@ -10,9 +10,12 @@ android {
         minSdkVersion 7
         targetSdkVersion 19
     }
+
+    packagingOptions {
+        exclude 'LICENSE.txt'
+    }
 }
 
 dependencies {
-    compile 'com.android.support:support-v4:+'
-    compile 'com.android.support:appcompat-v7:+'
+    compile project(':library')
 }

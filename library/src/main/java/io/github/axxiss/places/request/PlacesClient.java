@@ -63,7 +63,6 @@ public class PlacesClient {
             }
         };
         Log.d(TAG, url);
-        Log.d(TAG, params.toString());
 
 
         RequestParams parameters = new RequestParams();
@@ -73,6 +72,7 @@ public class PlacesClient {
         for (Map.Entry<Params, String> entry : entries) {
             parameters.put(entry.getKey().getValue(), entry.getValue());
         }
+        Log.d(TAG, parameters.toString());
 
         mHttpClient.get(url, parameters, handler);
     }
@@ -103,7 +103,7 @@ public class PlacesClient {
             callback.onException(new NullPointerException());
         } else {
 
-            if (response.getStatus().equals(Status.OK)) {
+            if (response.getStatus().equals(Status.OK.toString())) {
                 callback.onSuccess(response);
             } else {
                 callback.onException(new ApiPlacesException(response.getStatus()));

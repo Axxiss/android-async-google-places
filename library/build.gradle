@@ -1,4 +1,5 @@
 // Project Info
+name: 'async-google-places'
 description = 'Android lib for accessing Google Places API asynchronously'
 
 

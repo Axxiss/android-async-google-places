@@ -1,6 +1,5 @@
 package io.github.axxiss.places.request;
 
-import io.github.axxiss.places.IPlaceClient;
 import io.github.axxiss.places.callback.PlacesCallback;
 import io.github.axxiss.places.enums.Params;
 import io.github.axxiss.places.enums.Request;
@@ -8,7 +7,7 @@ import io.github.axxiss.places.enums.Request;
 /**
  * Created by alexis on 25/10/13.
  */
-public class RadarSearch extends BaseSearch implements IPlaceClient {
+public class RadarSearch extends BaseSearch {
 
     /**
      * The Google Places API Radar Search Service allows you to search for up to 200 Places at once,
@@ -25,6 +24,7 @@ public class RadarSearch extends BaseSearch implements IPlaceClient {
      * @return
      */
     public RadarSearch(final double lat, final double lng, int radius) {
+        super(Request.RadarSearch);
         params.put(Params.Location, PlaceParams.buildLocation(lat, lng));
         params.put(Params.Radius, radius);
     }

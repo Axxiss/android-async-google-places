@@ -16,14 +16,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity
-            android:name="io.github.axxis.places.sample.ResultActivity"
-            android:label="@string/title_activity_result"
-            android:parentActivityName="io.github.axxis.places.sample.MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="MainActivity"/>
-        </activity>
+        <activity android:name=".PlaceActivity"></activity>
     </application>
 
 </manifest>

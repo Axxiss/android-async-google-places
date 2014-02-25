@@ -8,9 +8,6 @@ import io.github.axxiss.places.enums.Request;
  * Created by alexis on 25/10/13.
  */
 public class NearbySearch extends BaseSearch {
-
-    protected PlaceParams params = new PlaceParams();
-
     /**
      * A Nearby Search lets you search for Places within a specified area. You can refine your
      * search request by supplying keywords or specifying the type of Place you are searching for.
