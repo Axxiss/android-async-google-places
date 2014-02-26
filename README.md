@@ -31,33 +31,27 @@ IMPORTANT! Currently Google Places API doesn't support Android Key, so you must 
 Replaces the parameter with your needed values
 
 
-    //Set mandatory request params
+    //Set request params
     PlaceParams params =  PlacesSearch.searchNearby(query, lat, lng, radius);
-
-    //add optional params
-    params.setKeyword("");
+    params.setKeyword(""); //optional
 
 
 
 3. Send the request
 
 
-    PlacesCallback callback = new new PlacesCallback() {
+    PlacesClient.sendRequest(params, new PlacesCallback() {
         @Override
         public void onSuccess(final Response response) {
           //do something with the result
-
         }
-
         @Override
         public void onException(final Exception exception) {
           //handle the exception
         }
-    }
+    });
 
-    PlacesClient.sendRequest(params, callback);
-
-
+To see a full working sample, check out sample project.
 
 License
 =======
