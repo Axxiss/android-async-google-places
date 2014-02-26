@@ -3,11 +3,14 @@ package io.github.axxiss.places.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Axxiss
  */
 public class Place implements Parcelable {
-    public Event[] events;
+    public List<Event> events = new ArrayList<Event>();
 
     private String formatted_address = null;
 
@@ -21,7 +24,7 @@ public class Place implements Parcelable {
 
     private String reference = null;
 
-    private String[] types = null;
+    private List<String> types = new ArrayList<String>();
 
     private Geometry geometry;
 
@@ -29,7 +32,7 @@ public class Place implements Parcelable {
 
     private OpeningHours opening_hours;
 
-    private Photo[] photos;
+    private List<Photo> photos = new ArrayList<Photo>();
 
     private int price_level;
 
@@ -102,7 +105,7 @@ public class Place implements Parcelable {
      *
      * @return the photos.
      */
-    public Photo[] getPhotos() {
+    public List<Photo> getPhotos() {
         return photos;
     }
 
@@ -122,7 +125,7 @@ public class Place implements Parcelable {
      *
      * @return place's events.
      */
-    public Event[] getEvents() {
+    public List<Event> getEvents() {
         return events;
     }
 
@@ -196,7 +199,7 @@ public class Place implements Parcelable {
      * @return
      * @see io.github.axxiss.places.enums.PlaceType
      */
-    public String[] getTypes() {
+    public List<String> getTypes() {
         return types;
     }
 
@@ -225,10 +228,9 @@ public class Place implements Parcelable {
         formatted_phone_number = in.readString();
         international_phone_number = in.readString();
         utc_offset = in.readInt();
-        types = new String[in.readInt()];
-        in.readStringArray(types);
-        events = (Event[]) in.readParcelableArray(Event.class.getClassLoader());
-        photos = (Photo[]) in.readParcelableArray(Photo.class.getClassLoader());
+        in.readStringList(types);
+        in.readTypedList(events, Event.CREATOR);
+        in.readTypedList(photos, Photo.CREATOR);
     }
 
     public int describeContents() {
@@ -236,10 +238,6 @@ public class Place implements Parcelable {
     }
 
     public void writeToParcel(Parcel dest, int flags) {
-        if (types == null) {
-            types = new String[1];
-        }
-
         dest.writeString(formatted_address);
         dest.writeString(icon);
         dest.writeString(id);
@@ -253,10 +251,9 @@ public class Place implements Parcelable {
         dest.writeString(formatted_phone_number);
         dest.writeString(international_phone_number);
         dest.writeInt(utc_offset);
-        dest.writeInt(types.length);
-        dest.writeStringArray(types);
-        dest.writeParcelableArray(events, 0);
-        dest.writeParcelableArray(photos, 0);
+        dest.writeStringList(types);
+        dest.writeTypedList(events);
+        dest.writeTypedList(photos);
     }
 
     public static final Parcelable.Creator<Place> CREATOR = new Parcelable.Creator<Place>() {

@@ -61,6 +61,7 @@ public class Photo implements Parcelable {
         photo_reference = in.readString();
         width = in.readInt();
         height = in.readInt();
+        html_attributions = new String[in.readInt()];
         in.readStringArray(html_attributions);
     }
 
@@ -72,6 +73,7 @@ public class Photo implements Parcelable {
         dest.writeString(photo_reference);
         dest.writeInt(width);
         dest.writeInt(height);
+        dest.writeInt(html_attributions.length);
         dest.writeStringArray(html_attributions);
     }
 

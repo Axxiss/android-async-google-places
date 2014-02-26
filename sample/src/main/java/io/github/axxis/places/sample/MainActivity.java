@@ -5,9 +5,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import io.github.axxiss.places.PlacesSettings;
 import io.github.axxiss.places.Response;
 import io.github.axxiss.places.callback.PlacesCallback;
+import io.github.axxiss.places.model.Place;
 import io.github.axxiss.places.request.PlaceSearch;
 
 /**
@@ -32,7 +36,10 @@ public class MainActivity extends Activity {
         PlaceSearch.nearbySearch(lat, lng, radius).sendRequest(new PlacesCallback() {
             @Override
             public void onSuccess(Response response) {
-                PlaceActivity.newInstance(MainActivity.this, response.getResults());
+                ArrayList<Place> places = new ArrayList<Place>(response.getResults().length);
+                places.addAll(Arrays.asList(response.getResults()));
+
+                PlaceActivity.newInstance(MainActivity.this, places);
             }
 
             @Override
