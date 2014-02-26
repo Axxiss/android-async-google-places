@@ -5,7 +5,7 @@ Android Google Places' asynchronous API wrapper. Inspired by [Sprockets][2]
 
 
 Install
-=====
+=======
 
 Add the dependency to your build system or download the jar from [Sonatype][1].
 
@@ -22,6 +22,7 @@ Usage
 
 IMPORTANT! Currently Google Places API doesn't support Android Key, so you must use a browser based key.
 
+
     PlacesSettings.getInstance().setApiKey("yourApiKey");
 
 
@@ -29,11 +30,13 @@ IMPORTANT! Currently Google Places API doesn't support Android Key, so you must 
 
 Replaces the parameter with your needed values
 
+
     //Set mandatory request params
     PlaceParams params =  PlacesSearch.searchNearby(query, lat, lng, radius);
 
     //add optional params
     params.setKeyword("");
+
 
 
 3. Send the request
@@ -53,6 +56,7 @@ Replaces the parameter with your needed values
     }
 
     PlacesClient.sendRequest(params, callback);
+
 
 
 License
