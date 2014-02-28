@@ -1,16 +1,19 @@
 buildscript {
     repositories {
         mavenCentral()
+        maven { url "https://oss.sonatype.org/content/groups/public" }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:0.8.+'
+        classpath 'com.github.townsfolk:gradle-release:1.2'
     }
 }
 
+apply plugin: 'release'
 
 allprojects {
-    group: 'io.github.axxiss'
-    version: '0.3.0-SNAPSHOT'
+    group = 'io.github.axxiss'
+    version = '0.3.0-SNAPSHOT'
 
     repositories {
         mavenCentral()

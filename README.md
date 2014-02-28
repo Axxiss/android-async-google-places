@@ -18,7 +18,8 @@ Add the dependency to your build system or download the jar from [Sonatype][1].
 Usage
 =====
 
-1. Set your API key
+Set your API key
+----------------
 
 IMPORTANT! Currently Google Places API doesn't support Android Key, so you must use a browser based key.
 
@@ -26,7 +27,8 @@ IMPORTANT! Currently Google Places API doesn't support Android Key, so you must 
     PlacesSettings.getInstance().setApiKey("yourApiKey");
 
 
-2. Build the request
+Build the request
+-----------------
 
 Replaces the parameter with your needed values
 
@@ -37,7 +39,8 @@ Replaces the parameter with your needed values
 
 
 
-3. Send the request
+Send the request
+----------------
 
 
     PlacesClient.sendRequest(params, new PlacesCallback() {
@@ -73,5 +76,5 @@ License
 
 
 
- [1]: https://oss.sonatype.org/index.html#nexus-search;quick~async-google-places
- [2]: https://github.com/pushbit/sprockets/
+[1]: https://oss.sonatype.org/index.html#nexus-search;quick~async-google-places
+[2]: https://github.com/pushbit/sprockets/

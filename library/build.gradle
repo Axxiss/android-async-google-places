@@ -1,7 +1,5 @@
 // Project Info
-name: 'async-google-places'
 description = 'Android lib for accessing Google Places API asynchronously'
-
 
 apply plugin: 'android-library'
 apply plugin: 'maven'
@@ -11,7 +9,6 @@ apply plugin: 'signing'
 //This must be on gradle.properties
 sonatypeUser = 'user'
 sonatypePass = 'pass'
-
 
 android {
     compileSdkVersion 19
@@ -24,7 +21,6 @@ android {
         targetSdkVersion 19
     }
 }
-
 
 
 dependencies {

@@ -1,5 +1,9 @@
 apply plugin: 'android'
 
+dependencies {
+    compile project(':library')
+}
+
 android {
     compileSdkVersion 19
     buildToolsVersion "19.0.1"
@@ -10,12 +14,4 @@ android {
         minSdkVersion 7
         targetSdkVersion 19
     }
-
-    packagingOptions {
-        exclude 'LICENSE.txt'
-    }
-}
-
-dependencies {
-    compile project(':library')
 }
