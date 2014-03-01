@@ -14,4 +14,10 @@ android {
         minSdkVersion 7
         targetSdkVersion 19
     }
+
+    //To avoid compilation error
+    packagingOptions {
+        exclude 'LICENSE.txt'
+    }
+
 }

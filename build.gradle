@@ -13,7 +13,6 @@ apply plugin: 'release'
 
 allprojects {
     group = 'io.github.axxiss'
-    version = '0.3.0-SNAPSHOT'
 
     repositories {
         mavenCentral()
