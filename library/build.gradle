@@ -114,3 +114,4 @@ task install(dependsOn: uploadArchives)
 //    }
 //}
 
+createReleaseTag.dependsOn uploadArchives
