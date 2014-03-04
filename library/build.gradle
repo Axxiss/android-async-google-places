@@ -45,6 +45,7 @@ uploadArchives {
     }
 }
 task install(dependsOn: uploadArchives)
+task createReleaseTag(dependsOn: uploadArchives)
 
 /**
  * Artifacts
@@ -114,4 +115,3 @@ task install(dependsOn: uploadArchives)
 //    }
 //}
 
-createReleaseTag.dependsOn uploadArchives
