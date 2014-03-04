@@ -1,0 +1,122 @@
+/**
+ * Repos
+ */
+
+enum Repository {
+    Local('file://' + new File(System.getProperty('user.home'), '.m2/repository').absolutePath),
+    Snapshot('https://oss.publish.org/content/repositories/snapshots/'),
+    Staging('https://oss.publish.org/service/local/staging/deploy/maven2')
+
+    private final String url;
+
+    Repository(String url) {
+        this.url = url
+    }
+
+    String getUrl() {
+        return url
+    }
+}
+
+// Group for
+def publishGroup = 'Upload'
+
+// Returns true if the current version is a Release one.
+def isReleaseBuild() {
+    return version.contains("SNAPSHOT") == false
+}
+
+// URL where artifacts will be uploaded
+def repositoryUrl = Repository.Local
+
+/**
+ * Upload the artifacts to default local maven repo.
+ */
+task publishToMavenLocal(dependsOn: uploadArchives) {
+    description 'Publish the artifact to Maven Local repository.'
+    group publishGroup
+    repositoryUrl = Repository.Local
+}
+
+/**
+ * Defines which remote repo to use, Staging or Snapshot and uploads the artifacts.
+ */
+task publishToMavenCentral(dependsOn: uploadArchives) {
+    description 'Publish the artifact to Maven Central repository.'
+    group publishGroup
+
+    if (isReleaseBuild()) {
+        repositoryUrl = Repository.Staging
+    } else {
+        repositoryUrl = Repository.Snapshot
+    }
+}
+
+afterEvaluate { project ->
+    uploadArchives {
+        repositories {
+            mavenDeployer {
+                beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+                pom.artifactId = POM_ARTIFACT_ID
+
+                repository(url: repositoryUrl.getUrl()) {
+                    if (repositoryUrl != Repository.Local) {
+                        authentication(userName: nexusUsername, password: nexusPassword)
+                    }
+                }
+
+                pom.project {
+                    name POM_NAME
+                    description POM_DESCRIPTION
+                    url POM_URL
+
+                    scm {
+                        url POM_SCM_URL
+                        connection POM_SCM_CONNECTION
+                        developerConnection POM_SCM_DEV_CONNECTION
+                    }
+
+                    licenses {
+                        license {
+                            name POM_LICENCE_NAME
+                            url POM_LICENCE_URL
+                            distribution POM_LICENCE_DIST
+                        }
+                    }
+
+                    developers {
+                        developer {
+                            id POM_DEVELOPER_ID
+                            name POM_DEVELOPER_NAME
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    signing {
+        required { isReleaseBuild() && gradle.taskGraph.hasTask("uploadArchives") }
+        sign configurations.archives
+    }
+
+    task androidJavadocs(type: Javadoc) {
+        source = android.sourceSets.main.allJava
+    }
+
+    task androidJavadocsJar(type: Jar) {
+        classifier = 'javadoc'
+        from androidJavadocs.destinationDir
+    }
+
+    task androidSourcesJar(type: Jar) {
+        classifier = 'sources'
+        from android.sourceSets.main.allSource
+    }
+
+    artifacts {
+        archives androidSourcesJar
+        archives androidJavadocsJar
+    }
+}

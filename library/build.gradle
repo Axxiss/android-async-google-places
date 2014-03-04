@@ -23,6 +23,8 @@ android {
             source = variant.javaCompile.source
             ext.androidJar = "${android.plugin.sdkDirectory}/platforms/${android.compileSdkVersion}/android.jar"
             classpath = files(variant.javaCompile.classpath.files) + files(ext.androidJar)
+            exclude '**/BuildConfig.java'
+            exclude '**/R.java'
         }
     }
 }
@@ -33,4 +35,4 @@ dependencies {
     compile 'com.loopj.android:android-async-http:1.4.4@aar'
 }
 
-apply from: 'sonatype.gradle'
+apply from: 'publish.gradle'
