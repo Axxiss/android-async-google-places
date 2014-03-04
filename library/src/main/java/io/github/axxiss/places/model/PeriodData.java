@@ -12,7 +12,7 @@ public class PeriodData implements Parcelable {
     private String time;
 
     /**
-     * A number from 0–6, corresponding to the days of the week, starting on Sunday. For example, 2
+     * A number from 0-6, corresponding to the days of the week, starting on Sunday. For example, 2
      * means Tuesday.
      *
      * @return the day
@@ -22,8 +22,8 @@ public class PeriodData implements Parcelable {
     }
 
     /**
-     * May contain a time of day in 24-hour hhmm format (values are in the range 0000–2359). The
-     * time will be reported in the Place’s timezone.
+     * May contain a time of day in 24-hour hhmm format (values are in the range 0000-2359). The
+     * time will be reported in the Place's timezone.
      *
      * @return the time
      */

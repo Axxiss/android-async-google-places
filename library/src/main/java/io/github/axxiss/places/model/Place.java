@@ -64,7 +64,7 @@ public class Place implements Parcelable {
     }
 
     /**
-     * Returns the number of minutes this Place’s current timezone is offset from UTC. For example,
+     * Returns the number of minutes this Place's current timezone is offset from UTC. For example,
      * for Places in Sydney, Australia during daylight saving time this would be 660 (+11 hours from
      * UTC), and for Places in California outside of daylight saving time this would be -480 (-8
      * hours from UTC).

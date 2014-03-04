@@ -20,7 +20,7 @@ public class RadarSearch extends BaseSearch {
      * @param lat    The latitude around which to retrieve Place information.
      * @param lng    The longitude around which to retrieve Place information.
      * @param radius Defines the distance (in meters) within which to return Place results. The
-     *               maximum allowed radius is 50 000 meters.
+     *               maximum allowed radius is 50000 meters.
      * @return
      */
     public RadarSearch(final double lat, final double lng, int radius) {

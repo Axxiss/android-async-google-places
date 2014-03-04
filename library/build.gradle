@@ -3,12 +3,7 @@ description = 'Android lib for accessing Google Places API asynchronously'
 
 apply plugin: 'android-library'
 apply plugin: 'maven'
-apply plugin: 'maven-publish'
 apply plugin: 'signing'
-
-//This must be on gradle.properties
-sonatypeUser = 'user'
-sonatypePass = 'pass'
 
 android {
     compileSdkVersion 19
@@ -20,8 +15,17 @@ android {
         minSdkVersion 7
         targetSdkVersion 19
     }
-}
 
+    libraryVariants.all { variant ->
+        task("generate${variant.name.capitalize()}Javadoc", type: Javadoc) {
+            description "Generates Javadoc for ${variant.name.capitalize()} build."
+            group 'Javadoc'
+            source = variant.javaCompile.source
+            ext.androidJar = "${android.plugin.sdkDirectory}/platforms/${android.compileSdkVersion}/android.jar"
+            classpath = files(variant.javaCompile.classpath.files) + files(ext.androidJar)
+        }
+    }
+}
 
 dependencies {
     compile 'junit:junit:4.11'
@@ -29,89 +33,4 @@ dependencies {
     compile 'com.loopj.android:android-async-http:1.4.4@aar'
 }
 
-
-def isSnapshot = version.contains("SNAPSHOT")
-
-def mavenCentralRepo = isSnapshot ?
-        'https://oss.sonatype.org/content/repositories/snapshots/' :
-        'https://oss.sonatype.org/service/local/staging/deploy/maven2';
-
-
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            repository url: 'file://' + new File(System.getProperty('user.home'), '.m2/repository').absolutePath
-        }
-    }
-}
-task install(dependsOn: uploadArchives)
-task createReleaseTag(dependsOn: uploadArchives)
-
-/**
- * Artifacts
- */
-//
-//task javadocJar(type: Jar, dependsOn: javadoc) {
-//    classifier = 'javadoc'
-//    from javadoc.destinationDir
-//}
-//
-//task sourceJar(type: Jar) {
-//    classifier = 'sources'
-//    from sourceSets.main.allSource
-//}
-//
-//
-//artifacts {
-//    archives jar
-//    archives sourceJar
-//    archives javadocJar
-//}
-//
-//
-//signing {
-//    sign configurations.archives
-//}
-//
-//uploadArchives {
-//    repositories.mavenDeployer {
-//        configuration = configurations.archives
-//
-////        beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-//
-//        repository(url: mavenCentralRepo) {
-//            authentication(userName: sonatypeUser, password: sonatypePass)
-//        }
-//
-//
-//        pom.project {
-//            name 'Android Async Google Places API'
-//            description 'Android lib for accessing Google Places API asynchronously'
-//            url 'https://github.com/Axxiss/android-async-google-places'
-//            inceptionYear '2013'
-//
-//            scm {
-//                url 'https://github.com/Axxiss/android-async-google-places'
-//                connection 'scm:git:git://github.com/Axxiss/android-async-google-places.git'
-//                developerConnection 'scm:git:ssh:git@github.com:Axxiss/android-async-google-places.git'
-//            }
-//
-//            licenses {
-//                license {
-//                    name 'The Apache Software License, Version 2.0'
-//                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-//                    distribution 'repo'
-//                }
-//            }
-//
-//            developers {
-//                developer {
-//                    id 'Axxiss'
-//                    name 'Alexis Mas'
-//                    email 'alexismas@about.me'
-//                }
-//            }
-//        }
-//    }
-//}
-
+apply from: 'sonatype.gradle'

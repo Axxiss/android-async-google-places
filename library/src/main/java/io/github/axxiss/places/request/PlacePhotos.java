@@ -35,7 +35,7 @@ public class PlacePhotos {
      * @return
      */
     public PlacePhotos(final String reference, final int maxHeight, final int maxWidth) {
-        params.put(Params.PĥotoReference, reference);
+        params.put(Params.PhotoReference, reference);
         params.put(Params.MaxHeight, maxHeight);
         params.put(Params.MaxWidth, maxWidth);
     }

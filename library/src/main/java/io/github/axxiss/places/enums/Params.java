@@ -22,7 +22,7 @@ public enum Params {
     OpenNow,
     ZagatSelected,
     PageToken,
-    PĥotoReference,
+    PhotoReference,
     Language,
     Page,
     Extensions,
