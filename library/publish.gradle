@@ -4,8 +4,8 @@
 
 enum Repository {
     Local('file://' + new File(System.getProperty('user.home'), '.m2/repository').absolutePath),
-    Snapshot('https://oss.publish.org/content/repositories/snapshots/'),
-    Staging('https://oss.publish.org/service/local/staging/deploy/maven2')
+    Snapshot('https://oss.sonatype.org/content/repositories/snapshots/'),
+    Staging('https://oss.sonatype.org/service/local/staging/deploy/maven2')
 
     private final String url;
 
