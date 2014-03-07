@@ -69,6 +69,7 @@ afterEvaluate { project ->
                 pom.project {
                     name POM_NAME
                     description POM_DESCRIPTION
+                    packaging 'aar'
                     url POM_URL
 
                     scm {
