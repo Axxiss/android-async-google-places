@@ -50,6 +50,7 @@ task publishToMavenCentral(dependsOn: uploadArchives) {
     } else {
         repositoryUrl = Repository.Snapshot
     }
+    println repositoryUrl.getUrl()
 }
 
 afterEvaluate { project ->
