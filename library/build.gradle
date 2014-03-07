@@ -36,5 +36,3 @@ dependencies {
 }
 
 apply from: 'publish.gradle'
-
-

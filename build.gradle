@@ -9,8 +9,6 @@ buildscript {
     }
 }
 
-apply plugin: 'release'
-
 allprojects {
     group = 'io.github.axxiss'
 
@@ -19,4 +17,8 @@ allprojects {
     }
 }
 
-createReleaseTag.dependsOn publishToMavenCentral
+apply plugin: 'release'
+
+afterEvaluate {
+    createReleaseTag.dependsOn(':library:publishToMavenCentral')
+}
