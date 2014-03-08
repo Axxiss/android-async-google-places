@@ -22,12 +22,12 @@ enum Repository {
 def publishGroup = 'Upload'
 
 // Returns true if the current version is a Release one.
-def isReleaseBuild() {
+tasks isReleaseBuild << {
     return version.contains("SNAPSHOT") == false
 }
 
 // URL where artifacts will be uploaded
-def repositoryUrl = Repository.Local
+def repositoryUrl = null
 
 /**
  * Upload the artifacts to default local maven repo.
@@ -44,13 +44,6 @@ task publishToMavenLocal(dependsOn: uploadArchives) {
 task publishToMavenCentral(dependsOn: uploadArchives) {
     description 'Publish the artifact to Maven Central repository.'
     group publishGroup
-
-    if (isReleaseBuild()) {
-        repositoryUrl = Repository.Staging
-    } else {
-        repositoryUrl = Repository.Snapshot
-    }
-    println repositoryUrl.getUrl()
 }
 
 afterEvaluate { project ->
@@ -60,6 +53,14 @@ afterEvaluate { project ->
                 beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
                 pom.artifactId = POM_ARTIFACT_ID
+
+                if (repositoryUrl == null) {
+                    if (isReleaseBuild()) {
+                        repositoryUrl = Repository.Staging
+                    } else {
+                        repositoryUrl = Repository.Snapshot
+                    }
+                }
 
                 repository(url: repositoryUrl.getUrl()) {
                     if (repositoryUrl != Repository.Local) {
