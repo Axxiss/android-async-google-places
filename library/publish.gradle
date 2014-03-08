@@ -22,7 +22,7 @@ enum Repository {
 def publishGroup = 'Upload'
 
 // Returns true if the current version is a Release one.
-tasks isReleaseBuild << {
+def isReleaseBuild() {
     return version.contains("SNAPSHOT") == false
 }
 
