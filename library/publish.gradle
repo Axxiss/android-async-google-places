@@ -44,6 +44,7 @@ task publishToMavenLocal(dependsOn: uploadArchives) {
 task publishToMavenCentral(dependsOn: uploadArchives) {
     description 'Publish the artifact to Maven Central repository.'
     group publishGroup
+    repositoryUrl = null
 }
 
 afterEvaluate { project ->
