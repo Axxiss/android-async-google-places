@@ -56,10 +56,10 @@ afterEvaluate { project ->
                 pom.artifactId = POM_ARTIFACT_ID
 
                 if (repositoryUrl == null) {
-                    if (isReleaseBuild()) {
-                        repositoryUrl = Repository.Staging
-                    } else {
+                    if (version.contains("SNAPSHOT")) {
                         repositoryUrl = Repository.Snapshot
+                    } else {
+                        repositoryUrl = Repository.Staging
                     }
                 }
 
