@@ -41,20 +41,20 @@ task publishToMavenLocal(dependsOn: uploadArchives) {
 /**
  * Defines which remote repo to use, Staging or Snapshot and uploads the artifacts.
  */
-task publishToMavenCentral(dependsOn: uploadArchives) {
+task publishToMavenCentral {
     description 'Publish the artifact to Maven Central repository.'
     group publishGroup
-    if (version.contains("SNAPSHOT")) {
-        repositoryUrl = Repository.Snapshot
-    } else {
-        repositoryUrl = Repository.Staging
+    if (url != null) {
+        if (version.contains("SNAPSHOT")) {
+            repositoryUrl = Repository.Snapshot
+        } else {
+            repositoryUrl = Repository.Staging
+        }
     }
 }
 
 afterEvaluate { project ->
-    uploadArchives {
-        mustRunAfter publishToMavenCentral
-        mustRunAfter publishToMavenLocal
+    uploadArchives(dependsOn: publishToMavenCentral) {
         repositories {
             mavenDeployer {
                 beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
