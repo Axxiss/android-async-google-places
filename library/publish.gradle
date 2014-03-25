@@ -44,7 +44,7 @@ task publishToMavenLocal(dependsOn: uploadArchives) {
 task publishToMavenCentral {
     description 'Publish the artifact to Maven Central repository.'
     group publishGroup
-    if (url != null) {
+    if (repositoryUrl != null) {
         if (version.contains("SNAPSHOT")) {
             repositoryUrl = Repository.Snapshot
         } else {
