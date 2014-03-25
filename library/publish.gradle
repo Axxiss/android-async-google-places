@@ -44,24 +44,22 @@ task publishToMavenLocal(dependsOn: uploadArchives) {
 task publishToMavenCentral(dependsOn: uploadArchives) {
     description 'Publish the artifact to Maven Central repository.'
     group publishGroup
-    repositoryUrl = null
+    if (version.contains("SNAPSHOT")) {
+        repositoryUrl = Repository.Snapshot
+    } else {
+        repositoryUrl = Repository.Staging
+    }
 }
 
 afterEvaluate { project ->
     uploadArchives {
+        mustRunAfter publishToMavenCentral
+        mustRunAfter publishToMavenLocal
         repositories {
             mavenDeployer {
                 beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
                 pom.artifactId = POM_ARTIFACT_ID
-
-                if (repositoryUrl == null) {
-                    if (version.contains("SNAPSHOT")) {
-                        repositoryUrl = Repository.Snapshot
-                    } else {
-                        repositoryUrl = Repository.Staging
-                    }
-                }
 
                 repository(url: repositoryUrl.getUrl()) {
                     if (repositoryUrl != Repository.Local) {
