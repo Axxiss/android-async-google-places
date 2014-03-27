@@ -26,39 +26,8 @@ def isReleaseBuild() {
     return version.contains("SNAPSHOT") == false
 }
 
-// URL where artifacts will be uploaded
-def repositoryUrl = null
-
-/**
- * Upload the artifacts to default local maven repo.
- */
-task publishToMavenLocal(dependsOn: uploadArchives) {
-    description 'Publish the artifact to Maven Local repository.'
-    group publishGroup
-    repositoryUrl = Repository.Local
-}
-
-/**
- * Defines which remote repo to use, Staging or Snapshot and uploads the artifacts.
- */
-
-
-
 
 afterEvaluate { project ->
-    task publishToMavenCentral << {
-        description 'Publish the artifact to Maven Central repository.'
-        group publishGroup
-        if (repositoryUrl != null) {
-            if (version.contains("SNAPSHOT")) {
-                repositoryUrl = Repository.Snapshot
-            } else {
-                repositoryUrl = Repository.Staging
-            }
-        }
-    }
-
-
     uploadArchives() {
         repositories {
             mavenDeployer {
@@ -66,10 +35,8 @@ afterEvaluate { project ->
 
                 pom.artifactId = POM_ARTIFACT_ID
 
-                repository(url: repositoryUrl.getUrl()) {
-                    if (repositoryUrl != Repository.Local) {
-                        authentication(userName: nexusUsername, password: nexusPassword)
-                    }
+                repository(url: Repository.Staging.getUrl()) {
+                    authentication(userName: nexusUsername, password: nexusPassword)
                 }
 
                 pom.project {
@@ -101,11 +68,6 @@ afterEvaluate { project ->
                 }
             }
         }
-    }
-
-
-    task publishToMaven(dependsOn: [publishToMavenCentral, uploadArchives]) {
-        uploadArchives.mustRunAfter publishToMavenCentral
     }
 
     signing {

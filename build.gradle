@@ -20,5 +20,5 @@ allprojects {
 apply plugin: 'release'
 
 afterEvaluate {
-    preTagCommit.dependsOn(':library:publishToMaven')
+    preTagCommit.dependsOn(':library:uploadArchives')
 }
