@@ -9,6 +9,7 @@ public enum Params {
 
     Key,
     Keyword,
+    Input,
     Reference,
     Sensor,
     Query,
