@@ -3,6 +3,5 @@
           package="io.github.axxiss.places">
 
     <application
-        android:label="@string/app_name"
-        android:icon="@drawable/ic_launcher"></application>
+        android:label="@string/app_name"></application>
 </manifest>
