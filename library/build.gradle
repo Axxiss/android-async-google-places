@@ -6,14 +6,14 @@ apply plugin: 'maven'
 apply plugin: 'signing'
 
 android {
-    compileSdkVersion 19
-    buildToolsVersion "19.1.0"
+    compileSdkVersion 20
+    buildToolsVersion "20.0.0"
 
     defaultConfig {
         versionCode 1
         versionName version
         minSdkVersion 7
-        targetSdkVersion 19
+        targetSdkVersion 20
     }
 
     libraryVariants.all { variant ->
