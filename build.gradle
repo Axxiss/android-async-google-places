@@ -1,11 +1,13 @@
 buildscript {
     repositories {
         mavenCentral()
+        jcenter()
         maven { url "https://oss.sonatype.org/content/groups/public" }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:0.13.2'
-        classpath 'com.github.townsfolk:gradle-release:1.2'
+        classpath 'org.gradle.api.plugins:gradle-nexus-plugin:0.7.1'
+        classpath 'com.github.dcendents:android-maven-plugin:1.1'
     }
 }
 
@@ -15,10 +17,4 @@ allprojects {
     repositories {
         mavenCentral()
     }
-}
-
-apply plugin: 'release'
-
-afterEvaluate {
-    preTagCommit.dependsOn(':library:uploadArchives')
 }

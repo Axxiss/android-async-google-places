@@ -20,7 +20,3 @@ android {
         exclude 'LICENSE.txt'
     }
 }
-
-task build(overwrite: true) {
-    println "dummy"
-}

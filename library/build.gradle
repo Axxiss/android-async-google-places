@@ -2,8 +2,9 @@
 description = 'Android lib for accessing Google Places API asynchronously'
 
 apply plugin: 'com.android.library'
-apply plugin: 'maven'
+apply plugin: 'android-maven'
 apply plugin: 'signing'
+apply plugin: 'nexus'
 
 android {
     compileSdkVersion 20
@@ -15,24 +16,18 @@ android {
         minSdkVersion 7
         targetSdkVersion 20
     }
-
-    libraryVariants.all { variant ->
-        task("generate${variant.name.capitalize()}Javadoc", type: Javadoc) {
-            description "Generates Javadoc for ${variant.name.capitalize()} build."
-            group 'Javadoc'
-            source = variant.javaCompile.source
-            ext.androidJar = "${sdkDirectory}/platforms/${android.compileSdkVersion}/android.jar"
-            classpath = files(variant.javaCompile.classpath.files) + files(ext.androidJar)
-            exclude '**/BuildConfig.java'
-            exclude '**/R.java'
-        }
-    }
 }
 
 dependencies {
     compile 'junit:junit:4.11'
     compile 'com.google.code.gson:gson:2.2.4'
     compile 'com.loopj.android:android-async-http:1.4.4@aar'
+}
+
+sourceSets {
+    main {
+        java.srcDirs = ['src/main/java']
+    }
 }
 
 apply from: 'publish.gradle'

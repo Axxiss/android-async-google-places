@@ -1,96 +1,29 @@
-/**
- * Repos
- */
+modifyPom {
+    project {
+        name POM_NAME
+        description POM_DESCRIPTION
+        packaging 'aar'
+        url POM_URL
 
-enum Repository {
-    Local('file://' + new File(System.getProperty('user.home'), '.m2/repository').absolutePath),
-    Snapshot('https://oss.sonatype.org/content/repositories/snapshots/'),
-    Staging('https://oss.sonatype.org/service/local/staging/deploy/maven2')
+        scm {
+            url POM_SCM_URL
+            connection POM_SCM_CONNECTION
+            developerConnection POM_SCM_DEV_CONNECTION
+        }
 
-    private final String url;
-
-    Repository(String url) {
-        this.url = url
-    }
-
-    String getUrl() {
-        return url
-    }
-}
-
-// Group for
-def publishGroup = 'Upload'
-
-// Returns true if the current version is a Release one.
-def isReleaseBuild() {
-    return version.contains("SNAPSHOT") == false
-}
-
-
-afterEvaluate { project ->
-    uploadArchives() {
-        repositories {
-            mavenDeployer {
-                beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-
-                pom.artifactId = POM_ARTIFACT_ID
-
-                repository(url: Repository.Staging.getUrl()) {
-                    authentication(userName: nexusUsername, password: nexusPassword)
-                }
-
-                pom.project {
-                    name POM_NAME
-                    description POM_DESCRIPTION
-                    packaging 'aar'
-                    url POM_URL
-
-                    scm {
-                        url POM_SCM_URL
-                        connection POM_SCM_CONNECTION
-                        developerConnection POM_SCM_DEV_CONNECTION
-                    }
-
-                    licenses {
-                        license {
-                            name POM_LICENCE_NAME
-                            url POM_LICENCE_URL
-                            distribution POM_LICENCE_DIST
-                        }
-                    }
-
-                    developers {
-                        developer {
-                            id POM_DEVELOPER_ID
-                            name POM_DEVELOPER_NAME
-                        }
-                    }
-                }
+        licenses {
+            license {
+                name POM_LICENCE_NAME
+                url POM_LICENCE_URL
+                distribution POM_LICENCE_DIST
             }
         }
-    }
 
-    signing {
-        required { isReleaseBuild() && gradle.taskGraph.hasTask("uploadArchives") }
-        sign configurations.archives
-    }
-
-    task androidJavadocs(type: Javadoc) {
-        source = android.sourceSets.main.java
-    }
-
-    task androidJavadocsJar(type: Jar) {
-        classifier = 'javadoc'
-        from androidJavadocs.destinationDir
-    }
-
-    task androidSourcesJar(type: Jar) {
-        classifier = 'sources'
-        from android.sourceSets.main.java
-    }
-
-    artifacts {
-        archives androidSourcesJar
-        archives androidJavadocsJar
+        developers {
+            developer {
+                id POM_DEVELOPER_ID
+                name POM_DEVELOPER_NAME
+            }
+        }
     }
 }
