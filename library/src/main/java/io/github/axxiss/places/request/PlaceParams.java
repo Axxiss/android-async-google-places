@@ -51,15 +51,9 @@ public class PlaceParams {
     }
 
 
-    public void put(Params key, List<PlaceType> value) {
-//FIXME
-//        String types = "";
-//
-//        for(PlaceType t: value){
-//
-//        }
-//
-//        params.put(key, String.valueOf(value));
+    public void put(Params key, List<PlaceType> values) {
+        //FIXME
+        setTypes(values.toArray(new PlaceType[values.size()]));
     }
 
     protected String getUrl() {
@@ -71,7 +65,8 @@ public class PlaceParams {
     }
 
 
-    public PlaceParams setTypes(PlaceType[] places) {
+    private PlaceParams setTypes(PlaceType[] places) {
+        //Single call in the Lib. Should be private
         final String divider = "|";
         StringBuilder types = new StringBuilder();
         for (PlaceType place : places) {
